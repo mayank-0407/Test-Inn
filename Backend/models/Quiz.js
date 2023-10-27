@@ -5,8 +5,8 @@ var quizSchema = mongoose.Schema({
     required: true,
   },
   quizdescription: {
-    type: String,
-    required: true,
+    type: String
+    // required: true,
   },
   upload: {
     type: Boolean,

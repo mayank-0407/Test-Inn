@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const { mongoose } = require("mongoose");
 
-const routes = require("./routes/authRoutes");
+const authroutes = require("./routes/authRoutes");
+const quizroutes = require("./routes/quizRoutes");
 
 require("dotenv").config();
 
@@ -21,6 +22,7 @@ try {
   console.log(error);
 }
 
-app.use("/api", routes);
+app.use("/api", authroutes);
+app.use("/quiz", quizroutes);
 
 app.listen(PORT, () => console.log(`Server is running at port: ${PORT}`));
