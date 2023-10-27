@@ -16,7 +16,7 @@ function sendEmail(to, otp) {
     from: "mayank.tempdata@gmail.com",
     to: to,
     // cc:cc,
-    subject: "Reset Password Quizy!!",
+    subject: "Reset Password TestInn!!",
     text: str,
   };
 

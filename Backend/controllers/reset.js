@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Otp = require('../models/Otp');
-const sendMail = require('./mail');
+const Otp = require("../models/Otp");
+const sendMail = require("./mail");
 const User = require("../models/User");
 
 // Wrap your asynchronous database operations in a function that returns a Promise
@@ -38,11 +38,14 @@ module.exports = async (req, res) => {
         await getEmail(email);
       }, 2 * 60000);
       const thisuser = await User.find({ email: req.body.email });
-      console.log(thisuser._id);
-      const url = `https://127.0.0.1:4001/reset/${thisuser._id}`;
+      var thisuser_id_temp = thisuser[0]._id;
+      var thisuser_id = thisuser_id_temp.toString(); // Convert the ObjectId to a string
+      console.log(thisuser_id);
+      var url = "http://127.0.0.1:5173/reset/";
+      url+=thisuser_id;
       var otp = new Otp({
-        otp: uRl,
-        email: req.body.email
+        otp: url,
+        email: req.body.email,
       });
       console.log("otp =", otp);
 

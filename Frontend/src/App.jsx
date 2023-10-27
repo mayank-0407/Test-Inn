@@ -4,7 +4,7 @@ import Signup from './Pages/Signup'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './Pages/Dashboard';
 import Reset from './Pages/Reset';
-
+import Verifyreset from './Pages/Verifyreset';
 
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/reset" element={<Reset />} />
+          <Route path="/reset/:id" element={<Verifyreset />} />
           {/* {isUserSignedIn && <Route path='/account' element={<Account />} />} */}
         </Routes>
       </div>

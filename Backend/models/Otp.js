@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var otpSchema = mongoose.Schema({
   otp: {
-    type: Number,
+    type: String,
     required: true,
   },
   email: {
