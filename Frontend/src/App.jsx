@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './Pages/Dashboard';
 import Reset from './Pages/Reset';
 import Verifyreset from './Pages/Verifyreset';
+import ViewQuiz from './Pages/ViewQuiz';
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/reset" element={<Reset />} />
           <Route path="/reset/:id" element={<Verifyreset />} />
+          <Route path="/quiz/view/:id" element={<ViewQuiz />} />
+          <Route path="/quiz/delete/:id" element={<Verifyreset />} />
           {/* {isUserSignedIn && <Route path='/account' element={<Account />} />} */}
         </Routes>
       </div>
