@@ -87,7 +87,7 @@ const deleteQuiz = async (req, res) => {
 
   try {
     await Quiz.deleteOne({ _id: id });
-    var id_quiz=id.toString();
+    var id_quiz = id.toString();
     await Question.deleteMany({ quizid: id_quiz });
 
     res
@@ -103,11 +103,12 @@ const deleteQuiz = async (req, res) => {
 
 const getHomequiz = async (req, res) => {
   try {
-    owner_id=req.params.id;
+    owner_id = req.params.id;
     const qz = await Quiz.find({ owner: owner_id, upload: true }).exec();
 
     if (qz) {
-      res.json({ quiz: qz });
+      // console.log(qz[0].quizname);
+      res.json(qz);
     } else {
       res.status(404).json({ msg: "No quizzes found" });
     }
@@ -136,7 +137,7 @@ const getAllQuestion = async (req, res) => {
     const qz = await Question.find({ quizid: req.params.id }).exec();
 
     if (qz) {
-      res.json({ msg: qz });
+      res.json(qz);
     } else {
       res.status(404).json({ errormsg: "No questions found" });
     }
