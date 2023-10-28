@@ -4,7 +4,7 @@ const Question = require("../models/question");
 const jwt = require("jsonwebtoken");
 
 const createQuiz = async (req, res) => {
-  const whoid = req.userId; // Assuming userId is in the request object
+  const whoid = req.body.ownerid; // Assuming userId is in the request object
   const whoemail = req.email; // Assuming email is in the request object
   // const whoid = 123213; // Assuming userId is in the request object
   // const whoemail = 'req.email'; // Assuming email is in the request object
@@ -60,26 +60,20 @@ const addQuestion = async (req, res) => {
 };
 
 const uploadQuiz = async (req, res) => {
+  const quizId = req.params.id;
   try {
     console.log("upload back");
     console.log(req.body);
 
-    const quizId = req.body.id;
-    const questions = await Question.find({ quizid: quizId });
+    // const quizId = req.body.id;
+    try {
+      const updatedQuiz = await Quiz.updateOne(
+        { _id: quizId },
+        { upload: true }
+      );
 
-    if (questions.length < 5) {
-      return res.json({
-        msg: "You must have 5 questions in the quiz for uploading!",
-      });
-    }
-
-    const updatedQuiz = await Quiz.updateOne({ _id: quizId }, { upload: true });
-
-    if (updatedQuiz.nModified > 0) {
-      const io = req.app.get("io");
-      io.emit("quizcrud", "Quiz CRUD done here");
       return res.json({ message: "Quiz uploaded!" });
-    } else {
+    } catch {
       return res.json({ msg: "Something went wrong!" });
     }
   } catch (error) {
@@ -89,12 +83,12 @@ const uploadQuiz = async (req, res) => {
 };
 
 const deleteQuiz = async (req, res) => {
-  const id = req.params.id;
+  var id = req.params.id;
 
   try {
     await Quiz.deleteOne({ _id: id });
-
-    await Question.deleteMany({ quizid: id });
+    var id_quiz=id.toString();
+    await Question.deleteMany({ quizid: id_quiz });
 
     res
       .status(200)
@@ -108,18 +102,19 @@ const deleteQuiz = async (req, res) => {
 };
 
 const getHomequiz = async (req, res) => {
-    try {
-        const qz = await Quiz.find({ owner: req.userId, upload: true }).exec();
+  try {
+    owner_id=req.params.id;
+    const qz = await Quiz.find({ owner: owner_id, upload: true }).exec();
 
-        if (qz) {
-            res.json({ quiz: qz });
-        } else {
-            res.status(404).json({ msg: "No quizzes found" });
-        }
-    } catch (err) {
-        console.error("Error in retrieving quizzes:", err);
-        res.status(500).json({ msg: "Some error occurred" });
+    if (qz) {
+      res.json({ quiz: qz });
+    } else {
+      res.status(404).json({ msg: "No quizzes found" });
     }
+  } catch (err) {
+    console.error("Error in retrieving quizzes:", err);
+    res.status(500).json({ msg: "Some error occurred" });
+  }
 };
 
 // const getAllQuestion = (req, res) => {
@@ -137,18 +132,18 @@ const getHomequiz = async (req, res) => {
 // };
 
 const getAllQuestion = async (req, res) => {
-    try {
-        const qz = await Question.find({ quizid: req.params.id }).exec();
+  try {
+    const qz = await Question.find({ quizid: req.params.id }).exec();
 
-        if (qz) {
-            res.json({ msg: qz });
-        } else {
-            res.status(404).json({ errormsg: "No questions found" });
-        }
-    } catch (err) {
-        console.error("Error in retrieving questions:", err);
-        res.status(500).json({ errormsg: "Some error occurred" });
+    if (qz) {
+      res.json({ msg: qz });
+    } else {
+      res.status(404).json({ errormsg: "No questions found" });
     }
+  } catch (err) {
+    console.error("Error in retrieving questions:", err);
+    res.status(500).json({ errormsg: "Some error occurred" });
+  }
 };
 
 const deleteQuestion = async (req, res) => {

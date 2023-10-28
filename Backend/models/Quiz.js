@@ -13,7 +13,7 @@ var quizSchema = mongoose.Schema({
     default: false,
   },
   owner: {
-    type: Number,
+    type: String,
   },
   owneremail: {
     type: String,
