@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const createQuiz = async (req, res) => {
   const whoid = req.body.ownerid; // Assuming userId is in the request object
-  const whoemail = req.email; // Assuming email is in the request object
+  const whoemail = req.body.email; // Assuming email is in the request object
   // const whoid = 123213; // Assuming userId is in the request object
   // const whoemail = 'req.email'; // Assuming email is in the request object
 
@@ -104,7 +104,7 @@ const deleteQuiz = async (req, res) => {
 const getHomequiz = async (req, res) => {
   try {
     owner_id = req.params.id;
-    const qz = await Quiz.find({ owner: owner_id, upload: true }).exec();
+    const qz = await Quiz.find({ owner: owner_id }).exec();
 
     if (qz) {
       // console.log(qz[0].quizname);

@@ -51,14 +51,14 @@ function Navbarhome() {
           }`}
         >
           <li>
-            <Link to="/dashboard" className="text-sm text-blue-600 font-bold">
+            <Link to="/dashboard" className="text-sm text-gray-400 hover:text-gray-500">
               Home
             </Link>
           </li>
           <li>
             <Link
               to="/dashboard/create/quiz"
-              className="text-sm text-gray-400 hover:text-gray-500"
+              className="text-sm text-blue-600 font-bold"
             >
               CreateQuiz
             </Link>

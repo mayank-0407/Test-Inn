@@ -9,5 +9,6 @@ router.post("/upload/:id", quizController.uploadQuiz);
 router.post("/deletes/:id", quizController.deleteQuiz);
 router.get("/:id", quizController.getHomequiz);
 router.get("/question/:id", quizController.getAllQuestion);
+router.post("/question/delete/:id", quizController.deleteQuestion);
 
 module.exports = router;

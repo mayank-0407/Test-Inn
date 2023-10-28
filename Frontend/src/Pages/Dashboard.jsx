@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbarhome from "../components/Navbarhome";
+import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -23,7 +23,7 @@ function Dashboard() {
           const response = await axios.get(
             `http://localhost:4001/quiz/${loggedIn.data._id}`
           );
-          console.log(response.data); // Log the response data, not user
+          console.log(response.data);
           getQuiz(response.data);
         } catch (error) {
           toast.error("Error");
@@ -38,7 +38,7 @@ function Dashboard() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <Navbarhome />
+      <Navbar />
       <ToastContainer />
       <div className="p-4 text-2xl font-semibold text-center">
         Hi {user.name}, Welcome to Your Dashboard!
@@ -50,24 +50,26 @@ function Dashboard() {
             className="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-700"
           >
             <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">
-                {thisquiz.quizname}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                {thisquiz.description}
-              </p>
+              <h3 className="text-xl font-semibold mb-2">{thisquiz.quizname}</h3>
+              <p className="text-gray-600 dark:text-gray-400">{thisquiz.description}</p>
             </div>
             <div className="p-4 bg-white dark:bg-neutral-800">
               <div className="flex justify-between">
                 <Link
                   to={`/quiz/view/${thisquiz._id}`}
-                  className="text-center bg-purple-500 text-white py-2 w-1/2 rounded-md hover:bg-purple-700 transition duration-300"
+                  className="block text-center bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300 mx-2"
                 >
                   View
                 </Link>
                 <Link
-                  to={`/delete-quiz/${thisquiz._id}`}
-                  className="text-center bg-red-500 text-white py-2 w-1/2 rounded-md hover:bg-red-700 transition duration-300"
+                  to={`/quiz/upload/${thisquiz._id}`}
+                  className="block text-center bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-300 mx-2"
+                >
+                  Upload
+                </Link>
+                <Link
+                  to={`/quiz/delete/${thisquiz._id}`}
+                  className="block text-center bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-300 mx-2"
                 >
                   Delete
                 </Link>

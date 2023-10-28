@@ -4,7 +4,7 @@ import { isLogin, logOut } from "../utils/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Navbarhome() {
+function Navbarviewquiz() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const isUserSignedIn = !!localStorage.getItem("token");
   const navigate = useNavigate();
@@ -51,16 +51,11 @@ function Navbarhome() {
           }`}
         >
           <li>
-            <Link to="/dashboard" className="text-sm text-blue-600 font-bold">
-              Home
-            </Link>
-          </li>
-          <li>
             <Link
-              to="/dashboard/create/quiz"
+              to="/dashboard"
               className="text-sm text-gray-400 hover:text-gray-500"
             >
-              CreateQuiz
+              Home
             </Link>
           </li>
         </ul>
@@ -123,15 +118,6 @@ function Navbarhome() {
                   Home
                 </Link>
               </li>
-              <li className="mb-1">
-                <Link
-                  to="/dashboard/create/quiz"
-                  className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-                  href="#"
-                >
-                  Create Quiz
-                </Link>
-              </li>
             </ul>
           </div>
           <div className="mt-auto">
@@ -151,4 +137,4 @@ function Navbarhome() {
   );
 }
 
-export default Navbarhome;
+export default Navbarviewquiz;
