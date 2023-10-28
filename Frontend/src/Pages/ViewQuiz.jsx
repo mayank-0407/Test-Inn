@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbarviewquiz from "../components/Navbarviewquiz";
+import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -37,7 +37,7 @@ function Viewquestion() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <Navbarviewquiz />
+      <Navbar />
       <ToastContainer />
       <div className="flex justify-between items-center ml-7 mr-12">
         <div className="p-4 text-2xl font-semibold text-left">

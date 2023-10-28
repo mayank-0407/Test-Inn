@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbarcreatequiz from "../components/Navbarcreatequiz";
+import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -54,7 +54,7 @@ function CreateQuestion() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <Navbarcreatequiz />
+      <Navbar />
       <ToastContainer />
       <div className="pt-3 w-full max-w-md mx-auto">
         <form

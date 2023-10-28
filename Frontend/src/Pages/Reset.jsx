@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isLogin, setAuthentication } from "../utils/auth";
+import NavbarLogin from "../components/NavbarLogin";
 
 function Reset() {
   const [email, setEmail] = useState("");
@@ -37,48 +37,43 @@ function Reset() {
   }, []);
 
   return (
-    <div className="">
+    <div>
+      <NavbarLogin />
       <ToastContainer />
-      <div className="p-4 font-bold text-2xl ">TestInn</div>
-      <div className="p-4 font-bold text-2xl ">Reset</div>
+      <div className="flex justify-center items-center h-screen">
+        <div className="max-w-md w-full">
+          <div className="text-3xl font-bold mb-4 text-center">Forgot Password</div>
 
-      <div className="pt-3 w-full max-w-md mx-auto">
-        <form
-          onSubmit={handleReset}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200"
-        >
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter Email"
-            />
-          </div>
-          <div className="flex items-center justify-between ml-40">
-            <button type="submit" className="bg-blue-600 rounded p-2">
-              Confirm Reset
-            </button>
-          </div>
-        </form>
-        <button
-          type="submit"
-          className="bg-blue-600 rounded p-2"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Login
-        </button>
+          <form
+            onSubmit={handleReset}
+            className="bg-white border-4 border-blue-150 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          >
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2" htmlFor="email">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter Email"
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <button
+                type="submit"
+                className="bg-blue-600 rounded p-2 w-full text-white"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+        <ToastContainer />
       </div>
     </div>
   );

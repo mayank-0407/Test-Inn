@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
       var thisuser_id_temp = thisuser[0]._id;
       var thisuser_id = thisuser_id_temp.toString(); // Convert the ObjectId to a string
       console.log(thisuser_id);
-      var url = "http://127.0.0.1:5173/reset/";
+      var url = "http://localhost:5173/reset/";
       url+=thisuser_id;
       var otp = new Otp({
         otp: url,

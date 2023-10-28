@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { isLogin,setAuthentication } from "../utils/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { isLogin, setAuthentication } from "../utils/auth";
+import NavbarSignup from "../components/NavbarSignup";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -22,10 +22,10 @@ function Signup() {
       });
       toast.success("Account Created Successfully");
       console.log("Sign-up result:", response);
-      navigate('/')
+      navigate("/");
     } catch (error) {
-        toast.error("Error");
-        console.error("Sign-up error:", error);
+      toast.error("Error");
+      console.error("Sign-up error:", error);
     }
   }
 
@@ -35,90 +35,81 @@ function Signup() {
       console.log(loggedIn);
 
       if (loggedIn.auth) {
-        navigate('/Dashboard')
-    }
+        navigate("/dashboard");
+      }
     };
     authenticate();
   }, []);
-
   return (
-    <div className="">
+    <div>
+      <NavbarSignup />
       <ToastContainer />
-      <div className="p-4 font-bold text-2xl ">Signup</div>
+      <div className="flex justify-center items-center h-screen">
+        <div className="max-w-md w-full">
+          <div className="text-3xl font-bold mb-4 text-center">Sign Up</div>
 
-      <div className="pt-3 w-full max-w-md mx-auto">
-        <form
+          <form
             onSubmit={handleSignup}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200"
-        >
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Name:
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter your name"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter Email"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="Pass1"
-            >
-              Password:
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter Password"
-            />
-          </div>
-          <div className="flex items-center justify-between ml-40">
-            <button type="submit" className="bg-blue-600 rounded p-2">
-              Signup
-            </button>
-          </div>
-        </form>
-        <button
-          type="submit"
-          className="bg-blue-600 rounded p-2"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Login
-        </button>
+            className="bg-white border-4 border-blue-150 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          >
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2" htmlFor="email">
+                Email:
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter your name"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-bold mb-2" htmlFor="email">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter Email"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Password:
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                type="submit"
+                className="bg-blue-600 rounded p-2 w-full text-white"
+              >
+                Signup
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
 }
+
 export default Signup;
