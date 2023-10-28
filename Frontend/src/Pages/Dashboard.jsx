@@ -40,8 +40,18 @@ function Dashboard() {
     <div className="bg-gray-100 min-h-screen">
       <Navbar />
       <ToastContainer />
-      <div className="p-4 text-2xl font-semibold text-center">
-        Hi {user.name}, Welcome to Your Dashboard!
+      <div className="flex justify-between items-center ml-7 mr-12">
+        <div className="p-4 text-2xl font-semibold text-left">
+          Hi {user.name}, Welcome to Your Dashboard!
+        </div>
+        <div className="flex space-x-4">
+          <Link
+            to={`/dashboard/create/quiz`}
+            className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Create Quiz
+          </Link>
+        </div>
       </div>
       <div className="container mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {quiz.map((thisquiz) => (
@@ -50,8 +60,12 @@ function Dashboard() {
             className="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-700"
           >
             <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">{thisquiz.quizname}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{thisquiz.description}</p>
+              <h3 className="text-xl font-semibold mb-2">
+                {thisquiz.quizname}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                {thisquiz.description}
+              </p>
             </div>
             <div className="p-4 bg-white dark:bg-neutral-800">
               <div className="flex justify-between">
