@@ -21,7 +21,7 @@ function UploadQuiz() {
           const response = await axios.post(
             `http://localhost:4001/quiz/upload/${id}`
           );
-          toast.success("Question deleted Successfully");
+          toast.success("Question Uploaded Successfully");
           timeoutId = setTimeout(() => {
             navigate("/dashboard");
           }, 2000);

@@ -4,11 +4,11 @@ const Question = require("../models/question");
 const jwt = require("jsonwebtoken");
 
 const createQuiz = async (req, res) => {
-  const whoid = req.body.ownerid; // Assuming userId is in the request object
+  const whoid_ = req.body.ownerid; // Assuming userId is in the request object
   const whoemail = req.body.email; // Assuming email is in the request object
   // const whoid = 123213; // Assuming userId is in the request object
   // const whoemail = 'req.email'; // Assuming email is in the request object
-
+  whoid=whoid_.toString();
   try {
     const quiz = new Quiz({
       quizname: req.body.quizname,
@@ -103,11 +103,12 @@ const deleteQuiz = async (req, res) => {
 
 const getHomequiz = async (req, res) => {
   try {
-    owner_id = req.params.id;
-    const qz = await Quiz.find({ owner: owner_id }).exec();
+    owner_id_ = req.params.id;
+    owner_id = owner_id_.toString();
+    const qz = await Quiz.find({ owner: owner_id });
 
     if (qz) {
-      // console.log(qz[0].quizname);
+      console.log(qz);
       res.json(qz);
     } else {
       res.status(404).json({ msg: "No quizzes found" });

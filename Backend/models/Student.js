@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please Enter Name"],
@@ -23,8 +23,12 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please Enter account Type"],
     default: false,
   },
+  quizid:{
+    type:String,
+    required:[true,"Please Enter Quiz ID"]
+  }
 });
 
-const User = mongoose.model("user", userSchema);
+const Student = mongoose.model("student", studentSchema);
 
-module.exports = User;
+module.exports = Student;

@@ -64,6 +64,9 @@ function Dashboard() {
                 {thisquiz.quizname}
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
+               QuizID - {thisquiz._id}
+              </p>
+              <p className="text-gray-600 dark:text-gray-400">
                 {thisquiz.description}
               </p>
             </div>

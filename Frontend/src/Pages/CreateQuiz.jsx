@@ -17,20 +17,17 @@ function CreateQuiz() {
   useEffect(() => {
     const authenticate = async () => {
       const loggedIn = await isLogin();
-      console.log(loggedIn);
 
       if (loggedIn.auth) {
         setUser(loggedIn.data);
-        console.log(user._id);
-        setOwnerid(user._id);
-        setOwneremail(user.email);
+        setOwnerid(loggedIn.data._id);
+        setOwneremail(loggedIn.data.email);
       } else {
         navigate("/");
       }
     };
     authenticate();
   }, []);
-  const timeoutId = setTimeout(() => {}, 5000); // 5000 milliseconds = 5 seconds
   async function handleQuizCreate(e) {
     e.preventDefault();
     try {
@@ -41,9 +38,11 @@ function CreateQuiz() {
         owneremail,
       });
       toast.success("Quiz Created Successfully");
-      timeoutId();
+      const timeoutId = setTimeout(() => {
 
-      navigate("/dashboard");
+        navigate("/dashboard");
+      }, 3000);
+
     } catch (error) {
       toast.error("Error");
       console.error("Reset error:", error);
