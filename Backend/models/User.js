@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema({
   },
   quizid:{
     type:String,
+  },
+  studentid:{
+    type:String,
   }
 });
 

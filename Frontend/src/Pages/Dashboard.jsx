@@ -67,6 +67,9 @@ function Dashboard() {
                QuizID - {thisquiz._id}
               </p>
               <p className="text-gray-600 dark:text-gray-400">
+               Uploaded - {thisquiz.upload}
+              </p>
+              <p className="text-gray-600 dark:text-gray-400">
                 {thisquiz.description}
               </p>
             </div>

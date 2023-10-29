@@ -1,6 +1,7 @@
 var { Router } = require("express");
 const signUp = require("../controllers/SignUp");
 const login = require("../controllers/login");
+const studentlogin = require("../controllers/studentlogin");
 const auth = require("../controllers/auth");
 const Reset  = require("../controllers/reset");
 const checkReset  = require("../controllers/checkReset");
@@ -29,6 +30,7 @@ var upload=multer({storage:Storage});
 
 router.post("/signup", signUp);
 router.post("/login", login);
+router.post("/student/login", studentlogin);
 router.post("/auth", auth);
 router.post("/reset", Reset);
 router.get("/reset/:id", getemailreset);

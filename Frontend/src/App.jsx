@@ -12,6 +12,9 @@ import DeleteQuestion from './Pages/DeleteQuestion';
 import DeleteQuiz from './Pages/DeleteQuiz';
 import UploadQuiz from './Pages/UploadQuiz';
 import Uploadstudents from './Pages/Uploadstudents';
+import StudentDashboard from './Pages/StudentDashboard';
+import StudentLogin from './Pages/StudentLogin';
+import Instructions from './Pages/Instructions';
 
 
 function App() {
@@ -32,6 +35,9 @@ function App() {
           <Route path="/quiz/upload/students/:id" element={<Uploadstudents />} />
           <Route path="/question/create/:id" element={<CreateQuestion />} />
           <Route path="/question/delete/:id" element={<DeleteQuestion />} />
+          <Route path="/student/login" element={<StudentLogin />} />
+          <Route path="/student/instructions" element={<Instructions />} />
+          <Route path="/student/quiz" element={<StudentDashboard />} />
           {/* {isUserSignedIn && <Route path='/account' element={<Account />} />} */}
         </Routes>
       </div>

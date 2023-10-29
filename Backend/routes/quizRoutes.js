@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const quizController = require("../controllers/quizController");
+const studentController = require("../controllers/studentController");
 
 const router = Router();
 
@@ -10,5 +11,6 @@ router.post("/deletes/:id", quizController.deleteQuiz);
 router.get("/:id", quizController.getHomequiz);
 router.get("/question/:id", quizController.getAllQuestion);
 router.post("/question/delete/:id", quizController.deleteQuestion);
+router.get("/student/show/:id", studentController.getAllQuestion);
 
 module.exports = router;
