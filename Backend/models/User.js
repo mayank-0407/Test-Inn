@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please Enter account Type"],
     default: false,
   },
+  quizid:{
+    type:String,
+  }
 });
 
 const User = mongoose.model("user", userSchema);
