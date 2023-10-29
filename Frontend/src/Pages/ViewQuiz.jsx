@@ -44,10 +44,15 @@ function Viewquestion() {
           All Questions
         </div>
         <div className="flex space-x-4">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Upload Quiz
-          </button>
-          <Link to={`/question/create/${id}`} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          <Link
+          to={`/quiz/upload/students/${id}`}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Upload Students
+          </Link>
+          <Link
+            to={`/question/create/${id}`}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
             Add Question
           </Link>
         </div>

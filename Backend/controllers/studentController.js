@@ -2,7 +2,11 @@ const user = require("../models/User");
 const csv = require("csvtojson");
 
 const importStudent = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded.");
+  }
   try {
+    console.log(req.file);
     var pass1=Math.floor(Math.random() * (99999999 - 100000 + 1)) + 100000;
     var userData = [];
     var thisid=req.params.id;

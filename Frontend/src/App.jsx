@@ -11,6 +11,7 @@ import CreateQuestion from './Pages/CreateQuestion';
 import DeleteQuestion from './Pages/DeleteQuestion';
 import DeleteQuiz from './Pages/DeleteQuiz';
 import UploadQuiz from './Pages/UploadQuiz';
+import Uploadstudents from './Pages/Uploadstudents';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/quiz/view/:id" element={<ViewQuiz />} />
           <Route path="/quiz/delete/:id" element={<DeleteQuiz />} />
           <Route path="/quiz/upload/:id" element={<UploadQuiz />} />
+          <Route path="/quiz/upload/students/:id" element={<Uploadstudents />} />
           <Route path="/question/create/:id" element={<CreateQuestion />} />
           <Route path="/question/delete/:id" element={<DeleteQuestion />} />
           {/* {isUserSignedIn && <Route path='/account' element={<Account />} />} */}

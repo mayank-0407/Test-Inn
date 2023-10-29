@@ -106,7 +106,6 @@ function Verifyreset() {
             </div>
           </form>
         </div>
-        <ToastContainer />
       </div>
     </div>
   );
