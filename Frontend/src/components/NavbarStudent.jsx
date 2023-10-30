@@ -4,10 +4,16 @@ import { isLogin, logOut } from "../utils/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function NavbarLogin() {
+function Navbar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const isUserSignedIn = !!localStorage.getItem("token");
   const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    logOut();
+    toast.success("Logout Successfully");
+    navigate("/student/login");
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -15,9 +21,9 @@ function NavbarLogin() {
 
   return (
     <body className="bg-blue-500">
-      <nav className="relative px-4 py-2 flex justify-between items-center bg-white">
-        <Link className="text-3xl font-bold leading-none flex">
-          <img
+      <nav className="relative px-4 py-4 flex justify-between items-center bg-white">
+        <Link className="text-3xl font-bold leading-none" to="/student/instructions">
+        <img
             src="../../logo/TestInn.png"
             alt="Test-Inn Logo"
             className="h-16 px-4"
@@ -52,7 +58,13 @@ function NavbarLogin() {
             </Link>
           </li> */}
         </ul>
-        
+        <a
+          className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
+          href="#"
+          onClick={handleSignOut}
+        >
+          Logout
+        </a>
       </nav>
       <div
         className={`navbar-menu relative z-50 ${isMenuOpen ? "" : "hidden"}`}
@@ -102,7 +114,13 @@ function NavbarLogin() {
           </div> */}
           <div className="mt-auto">
             <div className="pt-6">
-              
+              <a
+                className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl"
+                href="#"
+                onClick={handleSignOut}
+              >
+                Logout
+              </a>
             </div>
           </div>
         </nav>
@@ -111,4 +129,4 @@ function NavbarLogin() {
   );
 }
 
-export default NavbarLogin;
+export default Navbar;

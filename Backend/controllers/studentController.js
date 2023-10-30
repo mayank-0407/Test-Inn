@@ -49,9 +49,10 @@ const importStudent = async (req, res) => {
 const getAllQuestion = async (req, res) => {
   try {
     const qz = await Question.find({ quizid: req.params.id }).exec();
-    console.log(qz);
+    // console.log(req.params.id);
     if (qz) {
-      res.json(qz);
+      // console.log(qz);
+      res.status(200).json(qz);
     } else {
       res.status(404).json({ errormsg: "No questions found" });
     }

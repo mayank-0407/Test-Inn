@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Quiz = require("../models/quiz");
 const Question = require("../models/question");
+const Result = require("../models/Result");
 const jwt = require("jsonwebtoken");
 
 const createQuiz = async (req, res) => {
@@ -8,7 +9,7 @@ const createQuiz = async (req, res) => {
   const whoemail = req.body.email; // Assuming email is in the request object
   // const whoid = 123213; // Assuming userId is in the request object
   // const whoemail = 'req.email'; // Assuming email is in the request object
-  whoid=whoid_.toString();
+  whoid = whoid_.toString();
   try {
     const quiz = new Quiz({
       quizname: req.body.quizname,
@@ -38,12 +39,22 @@ const addQuestion = async (req, res) => {
 
     const questionId = questions.length + 1;
 
+    var this_ans = req.body.options;
+    // const thisans=[];
+    // if (typeof this_ans === 'string') {
+    //   thisans = this_ans.split(', ');
+
+    //   console.log(thisans);
+    // } else {
+    //   console.error("The input is not a string.");
+    // }
+
     const newQuestion = new Question({
       quizid: quizId,
       questionId: questionId,
       questionText: req.body.questionText,
       answer: req.body.answer,
-      options: req.body.options,
+      options: this_ans,
     });
 
     const savedQuestion = await newQuestion.save();
@@ -119,19 +130,36 @@ const getHomequiz = async (req, res) => {
   }
 };
 
-// const getAllQuestion = (req, res) => {
-//   // const url = `http://localhost:4200/teacher/seequestion`
-//   Question.find({ quizid: req.params.id }, (err, qz) => {
-//     if (err) {
-//       console.log(error);
-//       res.json({ errormsg: "some error!" });
-//     } else {
-//       res.json({ msg: qz });
-//     }
-//   });
-//   // res.redirect(
-//   //     `${url}`)
-// };
+const setResult = async (req, res) => {
+  try {
+    var quiz_id = req.body.quizid;
+    var student_id = req.body.studentid;
+    var total_marks_ = req.body.thistotal;
+    total_marks_++;
+    var total_marks = total_marks_.toString();
+
+    try {
+      const result = new Result({
+        studentid: student_id,
+        quizid: quiz_id,
+        marks: total_marks,
+      });
+
+      const savedResult = await result.save();
+      if (savedResult) {
+        res.status(200).json({ message: "Result added successfully!" });
+      } else {
+        res.status(500).json({ msg: "Failed to save the Result" });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Some error occurred" });
+    }
+  } catch (err) {
+    console.error("Error in retrieving quizzes:", err);
+    res.status(500).json({ msg: "Some error occurred" });
+  }
+};
 
 const getAllQuestion = async (req, res) => {
   try {
@@ -175,4 +203,5 @@ module.exports = {
   getHomequiz,
   getAllQuestion,
   deleteQuestion,
+  setResult,
 };

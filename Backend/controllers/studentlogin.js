@@ -10,9 +10,13 @@ module.exports = async (req, res) => {
   const dbUser = await User.findOne({ studentid: username }).exec();
   if (dbUser && dbUser.isStudent) {
     const match = await bcrypt.compare(password, dbUser.password);
+    const email = dbUser.email;
+    const quizid = dbUser.quizid;
+    const studentid = dbUser.studentid;
+    console.log(email);
     if (match) {
       const token = jwt.sign(
-        { _id: dbUser._id, name: dbUser.name, email:dbUser.email },
+        { _id: dbUser._id, name: dbUser.name, email ,quizid,studentid},
         process.env.JWT_LOGIN_TOKEN,
         {
           expiresIn: "1d",

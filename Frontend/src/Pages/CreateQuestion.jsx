@@ -17,7 +17,6 @@ function CreateQuestion() {
   const [options, setOptions] = useState([]);
   const { id } = useParams();
   let timeoutId;
-  
 
   useEffect(() => {
     const authenticate = async () => {
@@ -36,12 +35,15 @@ function CreateQuestion() {
   async function handleQuizCreate(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4001/quiz/question/create", {
-        quizid,
-        questionText,
-        answer,
-        options,
-      });
+      const response = await axios.post(
+        "http://localhost:4001/quiz/question/create",
+        {
+          quizid,
+          questionText,
+          answer,
+          options,
+        }
+      );
       toast.success("Question Added Successfully");
       timeoutId = setTimeout(() => {
         navigate("/dashboard");
@@ -51,6 +53,13 @@ function CreateQuestion() {
       console.error("Reset error:", error);
     }
   }
+
+  const handleTextareaChange = (e) => {
+    // Split the input text by commas and trim any leading/trailing spaces
+    const inputText = e.target.value;
+    const optionsArray = inputText.split(",").map((option) => option.trim());
+    setOptions(optionsArray);
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -105,8 +114,8 @@ function CreateQuestion() {
             <textarea
               id="options"
               name="options"
-              value={options.join(", ")} // Convert the array to a comma-separated string
-              onChange={(e) => setOptions(e.target.value.split(", "))} // Split the input string into an array
+              value={options.join(", ")} // Displaying the array as a comma-separated string
+              onChange={handleTextareaChange} // Split the input string into an array
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter Question Options (comma-separated)"
             />

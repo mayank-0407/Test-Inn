@@ -5,6 +5,7 @@ const studentController = require("../controllers/studentController");
 const router = Router();
 
 router.post("/create", quizController.createQuiz);
+router.post("/submit", quizController.setResult);
 router.post("/question/create", quizController.addQuestion);
 router.post("/upload/:id", quizController.uploadQuiz);
 router.post("/deletes/:id", quizController.deleteQuiz);
