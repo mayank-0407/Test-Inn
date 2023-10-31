@@ -55,6 +55,12 @@ function Viewquestion() {
           >
             Add Question
           </Link>
+          <Link
+            to={`/export/result/${id}`}
+            className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Download Result
+          </Link>
         </div>
       </div>
       <div className="container mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

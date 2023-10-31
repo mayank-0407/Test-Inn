@@ -3,6 +3,7 @@ const Quiz = require("../models/quiz");
 const Question = require("../models/question");
 const Result = require("../models/Result");
 const jwt = require("jsonwebtoken");
+const CsvParser = require("json2csv").Parser;
 
 const createQuiz = async (req, res) => {
   const whoid_ = req.body.ownerid; // Assuming userId is in the request object
@@ -139,9 +140,11 @@ const setResult = async (req, res) => {
     var total_marks = total_marks_.toString();
 
     try {
+      const dbUser = await User.findOne({ studentid: student_id }).exec();
       const result = new Result({
         studentid: student_id,
         quizid: quiz_id,
+        email: dbUser.email,
         marks: total_marks,
       });
 
@@ -195,6 +198,30 @@ const deleteQuestion = async (req, res) => {
   }
 };
 
+const exportResult = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let myResult=[];
+    var allResult = await Result.find({ quizid: id });
+    allResult.forEach((result) => {
+      const {quizid,email,marks}=result;
+      myResult.push({quizid,email,marks});
+    });
+
+    const csvField=['QuizId,Email,Marks'];
+    const csvparser=new CsvParser({csvField});
+    csvData=csvparser.parse(myResult);
+    res.setHeader("content-type","text/csv");
+    res.setHeader("content-Disposition","attachment:filename=Result.csv");
+    res.status(200).end(csvData);
+
+  } catch (err) {
+    res
+      .status(500)
+      .json({ msg: "Something went wrong while exporting the question" });
+  }
+};
+
 module.exports = {
   createQuiz,
   addQuestion,
@@ -204,4 +231,5 @@ module.exports = {
   getAllQuestion,
   deleteQuestion,
   setResult,
+  exportResult,
 };

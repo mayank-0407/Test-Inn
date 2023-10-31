@@ -13,5 +13,6 @@ router.get("/:id", quizController.getHomequiz);
 router.get("/question/:id", quizController.getAllQuestion);
 router.post("/question/delete/:id", quizController.deleteQuestion);
 router.get("/student/show/:id", studentController.getAllQuestion);
+router.get("/get/result/:id", quizController.exportResult);
 
 module.exports = router;

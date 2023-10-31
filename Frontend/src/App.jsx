@@ -15,6 +15,7 @@ import Uploadstudents from './Pages/Uploadstudents';
 import StudentDashboard from './Pages/StudentDashboard';
 import StudentLogin from './Pages/StudentLogin';
 import Instructions from './Pages/Instructions';
+import Exportresult from './Pages/Exportresult';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/student/login" element={<StudentLogin />} />
           <Route path="/student/instructions" element={<Instructions />} />
           <Route path="/student/quiz" element={<StudentDashboard />} />
+          <Route path="/export/result/:id" element={<Exportresult />} />
           {/* {isUserSignedIn && <Route path='/account' element={<Account />} />} */}
         </Routes>
       </div>
