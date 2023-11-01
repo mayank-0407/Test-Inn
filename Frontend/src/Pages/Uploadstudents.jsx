@@ -59,7 +59,12 @@ function Uploadstudents() {
         <form
           onSubmit={handleUpload}
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200"
-        >
+          >
+          <p><b>Please read these instructions before uploading Students Data to avoid any type of confusion:</b></p>
+            <p>1. Only CSV files are allowed. <a>Sample Excel File</a></p>
+            <p>2. There could be multiple columns, there order does not matter, for example - consider columns A and B, A can be given in the column after or before B but inside A column, only A's entries should be there.</p>
+            <p>3. If any duplicate entry is found, then first copy will be taken and rest will be dropped.</p>
+            <p>4. Compulsory Columns are : Email and Name of students. Column Names should be in title case.</p>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
