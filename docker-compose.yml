@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./Backend
+    ports:
+      - "4001:4001"
+    volumes:
+      - logs:/app/logs
+      - ./Backend:/app
+      - /app/node_modules
+  frontend:
+    build: ./Frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  data:
+  logs:

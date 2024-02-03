@@ -1,6 +1,6 @@
 const user = require("../models/User");
-const Quiz = require("../models/quiz");
-const Question = require("../models/question");
+const Quiz = require("../models/Quiz");
+const Question = require("../models/Question");
 const csv = require("csvtojson");
 const bcrypt = require("bcrypt");
 
@@ -23,11 +23,10 @@ const importStudent = async (req, res) => {
         for (var x = 0; x < res.length; x++) {
           var thispass = res[x].Email;
           var [new_username, domain] = thispass.split("@");
-          var new_pass=new_username;
-          new_username+=pass1;
+          var new_pass = new_username;
+          new_username += pass1;
           new_pass += pass1;
           const hashedPassword = await bcrypt.hash(new_pass, 10);
-
 
           userData.push({
             name: res[x].Name,
@@ -65,5 +64,4 @@ const getAllQuestion = async (req, res) => {
 module.exports = {
   importStudent,
   getAllQuestion,
-
 };
