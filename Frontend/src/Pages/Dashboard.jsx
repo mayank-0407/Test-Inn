@@ -23,6 +23,7 @@ function Dashboard() {
           const response = await axios.get(
             `http://localhost:4001/quiz/${loggedIn.data._id}`
           );
+          console.log("thisquiz", response.data[0].upload);
           console.log(response.data);
           getQuiz(response.data);
         } catch (error) {
@@ -64,10 +65,11 @@ function Dashboard() {
                 {thisquiz.quizname}
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-               QuizID - {thisquiz._id}
+                QuizID - {thisquiz._id}
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
-               Uploaded - {thisquiz.upload}
+              <p className="text-gray-600 dark:text-gray-400 inline-flex">
+                Uploaded - {thisquiz.upload && <p>True </p>}
+                (Make Quiz Online)
               </p>
               <p className="text-gray-600 dark:text-gray-400">
                 {thisquiz.description}

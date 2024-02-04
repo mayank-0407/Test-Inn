@@ -24,7 +24,7 @@ function Navbarviewquiz() {
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white">
         <Link className="text-3xl font-bold leading-none" to="/dashboard">
           <img
-            src="../../logo/TestInn.png"
+            src="/TestInn.png"
             alt="Test-Inn Logo"
             className="h-16 px-4"
           />
@@ -83,7 +83,7 @@ function Navbarviewquiz() {
           <div className="flex items-center mb-8">
             <a className="mr-auto text-3xl font-bold leading-none" href="#">
               <img
-                src="../../logo/TestInn.png"
+                src="/TestInn.png"
                 alt="Test-Inn Logo"
                 className="h-16 px-4"
               />

@@ -10,11 +10,16 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   async function handleSignup(e) {
     e.preventDefault();
     try {
+      if (confirmPassword !== password) {
+        toast.error("Error");
+        console.error("Both Passwords must be same!");
+      }
       const response = await axios.post("http://localhost:4001/api/signup", {
         name,
         email,
@@ -95,6 +100,23 @@ function Signup() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Enter Password"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-sm font-bold mb-2"
+                htmlFor="cpassword"
+              >
+                Confirm Password:
+              </label>
+              <input
+                type="password"
+                id="cpassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Re Enter Password"
               />
             </div>
             <div className="flex items-center justify-between">

@@ -14,7 +14,9 @@ function UploadQuiz() {
   useEffect(() => {
     const authenticate = async () => {
       const loggedIn = await isLogin();
-
+      const timeoutId = setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
       if (loggedIn.auth) {
         setUser(loggedIn.data);
         try {
@@ -22,9 +24,8 @@ function UploadQuiz() {
             `http://localhost:4001/quiz/upload/${id}`
           );
           toast.success("Question Uploaded Successfully");
-          timeoutId = setTimeout(() => {
-            navigate("/dashboard");
-          }, 2000);
+          
+          timeoutId();
         } catch (error) {
           toast.error("Error");
           console.error("error while fetching question:", error);

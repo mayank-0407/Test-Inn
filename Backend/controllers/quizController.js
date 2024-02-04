@@ -74,16 +74,13 @@ const addQuestion = async (req, res) => {
 const uploadQuiz = async (req, res) => {
   const quizId = req.params.id;
   try {
-    console.log("upload back");
-    console.log(req.body);
-
     // const quizId = req.body.id;
     try {
       const updatedQuiz = await Quiz.updateOne(
         { _id: quizId },
         { upload: true }
       );
-
+      console.log("Quiz uploaded successfully!");
       return res.json({ message: "Quiz uploaded!" });
     } catch {
       return res.json({ msg: "Something went wrong!" });
@@ -121,7 +118,7 @@ const getHomequiz = async (req, res) => {
 
     if (qz) {
       console.log(qz);
-      res.json(qz);
+      res.status(200).json(qz);
     } else {
       res.status(404).json({ msg: "No quizzes found" });
     }
@@ -201,20 +198,19 @@ const deleteQuestion = async (req, res) => {
 const exportResult = async (req, res) => {
   try {
     const id = req.params.id;
-    let myResult=[];
+    let myResult = [];
     var allResult = await Result.find({ quizid: id });
     allResult.forEach((result) => {
-      const {quizid,email,marks}=result;
-      myResult.push({quizid,email,marks});
+      const { quizid, email, marks } = result;
+      myResult.push({ quizid, email, marks });
     });
 
-    const csvField=['QuizId,Email,Marks'];
-    const csvparser=new CsvParser({csvField});
-    csvData=csvparser.parse(myResult);
-    res.setHeader("content-type","text/csv");
-    res.setHeader("content-Disposition","attachment:filename=Result.csv");
+    const csvField = ["QuizId,Email,Marks"];
+    const csvparser = new CsvParser({ csvField });
+    csvData = csvparser.parse(myResult);
+    res.setHeader("content-type", "text/csv");
+    res.setHeader("content-Disposition", "attachment:filename=Result.csv");
     res.status(200).end(csvData);
-
   } catch (err) {
     res
       .status(500)

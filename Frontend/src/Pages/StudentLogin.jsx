@@ -54,9 +54,9 @@ function Login() {
     <div>
       <NavbarStudent />
       <ToastContainer />
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center ">
         <div className="max-w-md w-full">
-          <div className="text-3xl font-bold mb-4 text-center">Login</div>
+          <div className="text-3xl font-bold mb-5 text-center">Login</div>
 
           <form
             onSubmit={handleSignup}

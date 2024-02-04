@@ -22,12 +22,11 @@ function Navbar() {
   return (
     <body className="bg-blue-500">
       <nav className="relative px-4 py-4 flex justify-between items-center bg-white">
-        <Link className="text-3xl font-bold leading-none" to="/student/instructions">
-        <img
-            src="../../logo/TestInn.png"
-            alt="Test-Inn Logo"
-            className="h-16 px-4"
-          />
+        <Link
+          className="text-3xl font-bold leading-none"
+          to="/student/instructions"
+        >
+          <img src="/TestInn.png" alt="Test-Inn Logo" className="h-16 px-4" />
         </Link>
         <div className="lg:hidden">
           <button
@@ -76,11 +75,11 @@ function Navbar() {
         <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
           <div className="flex items-center mb-8">
             <a className="mr-auto text-3xl font-bold leading-none" href="#">
-            <img
-            src="../../logo/TestInn.png"
-            alt="Test-Inn Logo"
-            className="h-16 px-4"
-          />
+              <img
+                src="/TestInn.png"
+                alt="Test-Inn Logo"
+                className="h-16 px-4"
+              />
             </a>
             <button className="navbar-close" onClick={toggleMenu}>
               <svg
