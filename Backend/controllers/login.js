@@ -19,14 +19,18 @@ module.exports = async (req, res) => {
         }
       );
 
-      res.json({
+      res.status(200).json({
         message: "Login Successful",
         token,
       });
     } else {
-      res.status(400).json({ message: "Username or Password incorrect" });
+      res.status(203).json({ message: "Username or Password incorrect" });
     }
   } else {
-    res.status(400).json({ message: "Username is Not registered or this is student account" });
+    res
+      .status(203)
+      .json({
+        message: "Username is Not registered or this is student account",
+      });
   }
 };

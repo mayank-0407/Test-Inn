@@ -8,19 +8,23 @@ const validateSignupData = async (req, res) => {
   const { name, email, password } = req.body;
 
   if (name.trim().length === 0) {
+    console.log("1");
     res.status(400).json({ message: "Please Enter a Name" });
     return false;
   }
 
   if (!isEmail(email)) {
+    console.log("2");
     res.status(400).json({ message: "Please Enter a valid email" });
     return false;
   }
 
   if (password.trim().length === 0) {
+    console.log("3");
     res.status(400).json({ message: "Please Enter password" });
     return false;
   } else if (password.trim().length <= 5) {
+    console.log("4");
     res
       .status(400)
       .json({ message: "Minimum password length is 6 characters" });
@@ -41,15 +45,19 @@ const validateSignupData = async (req, res) => {
 module.exports = async (req, res) => {
   const { name, email, password } = req.body;
   console.log(name, email, password);
-
   // Validate Inputs
-  const isValid = await validateSignupData(req, res);
+  let isValid = false;
+  const existingUser = await User.findOne({ email: email }).exec();
+  if (existingUser) {
+    return res.status(203).json({ message: "Email Already Registered" });
+  }
+  isValid=true;
   if (isValid) {
     try {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       const user = await User.create({ name, email, password: hashedPassword });
 
-      return res.json({
+      return res.status(200).json({
         message: "Account Created Successfully",
         user: { _id: user._id, name: user.name, email: user.email },
       });

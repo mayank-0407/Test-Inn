@@ -53,22 +53,25 @@ export default function SignIn() {
       console.log("Sign-in result:", response);
       if (response.status === 200) {
         toast.success("Account logged in Successfully");
+        console.log(response.data.token);
         setifError(true);
         setError("Login Successful!");
         setAuthentication(response.data.token);
         navigate("/dashboard");
-      } else if (response.status === 203) {
+      }
+      else if (response.status === 203) {
         setifError(true);
         setError(response.data.message);
         return;
-      } else {
+      }
+      else {
         setifError(true);
         setError("Username is Not registered or this is student account");
         return;
       }
     } catch (error) {
-      setifError(true);
-      setError(error);
+      toast.error("Error");
+      console.error("Sign-in error:", error);
     }
   };
   useEffect(() => {
@@ -79,7 +82,7 @@ export default function SignIn() {
       if (loggedIn.auth) {
         navigate("/dashboard");
       } else {
-        navigate("/");
+        navigate("/test");
       }
     };
 

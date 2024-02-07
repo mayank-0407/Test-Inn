@@ -120,7 +120,7 @@ const getHomequiz = async (req, res) => {
       console.log(qz);
       res.status(200).json(qz);
     } else {
-      res.status(404).json({ msg: "No quizzes found" });
+      res.status(203).json({ msg: "No quizzes found" });
     }
   } catch (err) {
     console.error("Error in retrieving quizzes:", err);

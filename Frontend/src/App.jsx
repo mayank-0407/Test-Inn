@@ -16,6 +16,7 @@ import StudentDashboard from './Pages/StudentDashboard';
 import StudentLogin from './Pages/StudentLogin';
 import Instructions from './Pages/Instructions';
 import Exportresult from './Pages/Exportresult';
+import Test from './Pages/Test';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/create/quiz" element={<CreateQuiz />} />

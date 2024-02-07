@@ -23,11 +23,17 @@ function Dashboard() {
           const response = await axios.get(
             `http://localhost:4001/quiz/${loggedIn.data._id}`
           );
-          console.log("thisquiz", response.data[0].upload);
-          console.log(response.data);
-          getQuiz(response.data);
+          if (response.status === 200) {
+            console.log("thisquiz", response.data[0].upload);
+            console.log(response.data);
+            getQuiz(response.data);
+          } else {
+            console.log("thisquiz", response.data[0].upload);
+            console.log(response.data);
+            toast.error("No Quiz Added Yet!");
+          }
         } catch (error) {
-          toast.error("Error");
+          // toast.error("Error");
           console.error("error while fetching quiz:", error);
         }
       } else {
