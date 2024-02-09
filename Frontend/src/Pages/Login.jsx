@@ -39,7 +39,7 @@ export default function SignIn() {
       setifError(true);
       setError("Password Con not be empty");
       return;
-    } else if (password.trim().length <= 5) {
+    } else if (password.trim().length <= 8) {
       setifError(true);
       setError("Minimum password length is 8 characters");
       return;
@@ -88,6 +88,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <ToastContainer />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

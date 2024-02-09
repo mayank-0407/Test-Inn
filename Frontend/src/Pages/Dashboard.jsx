@@ -51,6 +51,7 @@ function Dashboard() {
         <div className="p-4 text-2xl font-semibold text-left">
           Hi {user.name}, Welcome to Your Dashboard!
         </div>
+        <h1 id="OnDashboard" hidden>OnDashboard</h1>
         <div className="flex space-x-4">
           <Link
             to={`/dashboard/create/quiz`}

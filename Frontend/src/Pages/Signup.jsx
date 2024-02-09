@@ -65,18 +65,49 @@ export default function Test() {
       console.log("3");
       isValid = false;
       setifError(true);
-      setError("Please Enter password");
+      setError("Password Can not be Empty!");
+      return;
+    }
+    if (confirmPassword !== password) {
+      setError("Both Passwords must be same!");
+      setifError(true);
+      return;
+    }
+    if (password.includes(" ")) {
+      setError("Password Can not have an Empty Space!");
+      setifError(true);
+      return;
+    }
+    if (password.length < 8 || password.length > 15) {
+      setError("Password must be between 8 and 15 characters!");
+      setifError(true);
+      return;
+    }
+
+    if (!/\d/.test(password)) {
+      setError("Password must contain at least one digit!");
+      setifError(true);
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      setError("Password must contain at least one lowercase alphabet!");
+      setifError(true);
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError("Password must contain at least one uppercase alphabet!");
+      setifError(true);
+      return;
+    }
+    if (!/[!@#$%&*()-+=^]/.test(password)) {
+      setError("Password must contain at least one special character (!@#$%&*()-+=^)!");
+      setifError(true);
       return;
     }
     try {
-      if (confirmPassword !== password) {
-        setError("Both Passwords must be same!");
-        setifError(true);
-        return;
-      }
       const passwordRegex =
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-+=^]).{8,15}$/;
-      console.log(passwordRegex.test(password));
       if (!passwordRegex.test(password)) {
         console.log("Password is not valid");
         setError(
