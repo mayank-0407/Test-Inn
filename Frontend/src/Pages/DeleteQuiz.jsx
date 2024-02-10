@@ -23,10 +23,10 @@ function DeleteQuiz() {
           );
           toast.success("Quiz and All Questions are deleted Successfully");
           timeoutId = setTimeout(() => {
-            navigate("/dashboard");
-          }, 2000);
+            navigate(`/dashboard`);
+          }, 1000);
         } catch (error) {
-          toast.error("Error");
+          // toast.error("Error");
           console.error("error while fetching question:", error);
         }
       } else {

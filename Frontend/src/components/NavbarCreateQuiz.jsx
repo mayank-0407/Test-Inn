@@ -4,9 +4,9 @@ import { logOut } from "../utils/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Navbar() {
-  const navigate = useNavigate();
+function NavbarCreateQuiz() {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     logOut();
@@ -41,8 +41,11 @@ function Navbar() {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/dashboard/create/quiz" className="btn-blue">
-              Create Quiz
+            <Link
+              to="/dashboard"
+              className="btn-blue"
+            >
+              Home
             </Link>
             <a
               className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-full transition duration-200"
@@ -90,8 +93,11 @@ function Navbar() {
           </div>
           <div className="mt-auto">
             <div className="pt-6">
-              <Link to="/dashboard/create/quiz" className="btn-blue">
-                Create Quiz
+              <Link
+                to="/dashboard"
+                className="btn-blue"
+              >
+                Home
               </Link>
               <a
                 className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded-full"
@@ -109,4 +115,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarCreateQuiz;
