@@ -6,10 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isLogin, setAuthentication } from "../utils/auth";
 
-function Viewquestion() {
+function ViewStudents() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ name: "", email: "" });
-  const [questions, setQuestions] = useState([]);
+  const [allStudents, setAllStudents] = useState([]);
   const { id } = useParams();
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -30,12 +30,12 @@ function Viewquestion() {
         setUser(loggedIn.data);
         try {
           const response = await axios.get(
-            `http://localhost:4001/quiz/question/${id}`
+            `http://localhost:4001/quiz/students/${id}`
           );
-          setQuestions(response.data);
+          setAllStudents(response.data);
         } catch (error) {
-          toast.error("Error while fetching questions");
-          console.error("Error fetching questions:", error);
+          // toast.error("Error while fetching Students");
+          console.error("Error fetching Students:", error);
         }
       } else {
         navigate("/");
@@ -44,19 +44,19 @@ function Viewquestion() {
     authenticate();
   }, []);
 
-  async function handleDeleteQuestion(questionId) {
-    try {
-      await axios.delete(`http://localhost:4001/question/delete/${questionId}`);
-      const updatedQuestions = questions.filter(
-        (question) => question._id !== questionId
-      );
-      setQuestions(updatedQuestions);
-      toast.success("Question deleted successfully");
-    } catch (error) {
-      toast.error("Error deleting question");
-      console.error("Error deleting question:", error);
-    }
-  }
+  // async function handleDeleteQuestion(questionId) {
+  //   try {
+  //     await axios.delete(`http://localhost:4001/question/delete/${questionId}`);
+  //     const updatedQuestions = questions.filter(
+  //       (question) => question._id !== questionId
+  //     );
+  //     setAllStudents(updatedQuestions);
+  //     toast.success("Question deleted successfully");
+  //   } catch (error) {
+  //     toast.error("Error deleting question");
+  //     console.error("Error deleting question:", error);
+  //   }
+  // }
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -88,8 +88,8 @@ function Viewquestion() {
             <Link to={`/quiz/upload/students/${id}`} className="btn-blue">
               Add Students
             </Link>
-            <Link to={`/quiz/student/view/${id}`} className="btn-blue">
-              All Students
+            <Link to={`/quiz/view/${id}`} className="btn-blue">
+              All Questions
             </Link>
             <Link to={`/export/result/${id}`} className="btn-purple">
               Download Result
@@ -164,44 +164,44 @@ function Viewquestion() {
         </nav>
       </div>
       <ToastContainer />
-      <div className="flex justify-between items-center mx-7 my-4">
-        <div className="text-2xl font-semibold">All Questions</div>
+      <div className="flex justify-center items-center mx-7 my-4">
+        <div className="text-2xl font-semibold">All Students</div>
       </div>
-      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {questions.map((question) => (
-          <div
-            key={question.questionId}
-            className="relative rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-700"
-          >
-            <Link
-              to={`/question/delete/${question._id}`}
-              className="absolute top-2 right-2 p-2 text-black  hover:text-red-700"
-            >
-              X
-            </Link>
-            <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">
-                QuizID - {question.questionId}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Quiz Name - {question.questionText}
-              </p>
-              <p className="text-gray-600 dark:text-gray-400">
-                Answer - {question.answer}
-              </p>
-              {question.ismcq ? (
-                <p className="text-gray-600 dark:text-gray-400">
-                  Options - {question.options.map((option) => option + ", ")}
-                </p>
-              ) : (
-                <></>
-              )}
-            </div>
-          </div>
-        ))}
+
+      <div className="container mx-auto">
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-300 px-4 py-2">Student Name</th>
+              <th className="border border-gray-300 px-4 py-2">
+                Student Email
+              </th>
+              <th className="border border-gray-300 px-4 py-2">Quiz Id</th>
+              <th className="border border-gray-300 px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allStudents.map((student) => (
+              <tr key={student.questionId} className="border-t border-gray-300">
+                <td className="border border-gray-300 px-4 py-2">
+                  {student.name}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {student.email}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {student.quizid}
+                </td>
+                <td className="btn-blue px-4 py-2">
+                  <Link to={`/student/delete/${student._id}`}>Delete</Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 }
 
-export default Viewquestion;
+export default ViewStudents;

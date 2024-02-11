@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Quiz = require("../models/Quiz");
 const Question = require("../models/Question");
+const Student = require("../models/Student");
 const Result = require("../models/Result");
 const jwt = require("jsonwebtoken");
 const CsvParser = require("json2csv").Parser;
@@ -52,7 +53,7 @@ const addQuestion = async (req, res) => {
       questionText: req.body.questionText,
       answer: req.body.answer,
       options: queOptions,
-      ismcq:true
+      ismcq: true,
     });
 
     const savedQuestion = await newQuestion.save();
@@ -62,8 +63,7 @@ const addQuestion = async (req, res) => {
     } else {
       return res.status(400).json({ message: "Failed to add the question!" });
     }
-  }
-   catch (error) {
+  } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Unknown server error!" });
   }
@@ -81,7 +81,7 @@ const addQuestionFillUp = async (req, res) => {
       questionText: req.body.questionText,
       answer: req.body.answer,
       options: [],
-      ismcq:false
+      ismcq: false,
     });
 
     const savedQuestion = await newQuestion.save();
@@ -91,8 +91,7 @@ const addQuestionFillUp = async (req, res) => {
     } else {
       return res.status(400).json({ message: "Failed to add the question!" });
     }
-  }
-   catch (error) {
+  } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Unknown server error!" });
   }
@@ -245,6 +244,24 @@ const exportResult = async (req, res) => {
   }
 };
 
+const getStudents = async (req, res) => {
+  try {
+    quiz_id_ = req.params.id;
+    quiz_id = quiz_id_.toString();
+    const qz = await User.find({ quizid: quiz_id });
+
+    if (qz) {
+      console.log(qz);
+      res.status(200).json(qz);
+    } else {
+      res.status(203).json({ msg: "No Student found" });
+    }
+  } catch (err) {
+    console.error("Error in retrieving quizzes:", err);
+    res.status(500).json({ msg: "Some error occurred" });
+  }
+};
+
 module.exports = {
   createQuiz,
   addQuestion,
@@ -256,4 +273,5 @@ module.exports = {
   setResult,
   exportResult,
   addQuestionFillUp,
+  getStudents,
 };

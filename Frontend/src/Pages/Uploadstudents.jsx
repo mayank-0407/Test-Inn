@@ -35,14 +35,20 @@ function Uploadstudents() {
           },
         })
         .then((response) => {
-          console.log("File uploaded successfully", response);
-          toast.success("File uploaded successfully");
-          const timeoutId = setTimeout(() => {
-            navigate("/dashboard");
-          }, 2000);
+          if (response.status === 200) {
+            console.log("File uploaded successfully", response);
+            toast.success("File uploaded successfully");
+            const timeoutId = setTimeout(() => {
+              navigate("/dashboard");
+            }, 2000);
+            timeoutId();
+          }
+          if(response.status === 500){
+            toast.error("Error while uploading students");
+          }
         })
         .catch((error) => {
-          toast.error("Error uploading file");
+          // toast.error("Error uploading file");
           console.error("Error uploading file", error);
         });
     }
@@ -161,6 +167,9 @@ function Uploadstudents() {
             </b>
           </p>
           <p>
+            - Make Sure you add Students after before taking quiz because there are chances that student is enrolled in another quiz.
+          </p>
+          <p>
             1. Only CSV files are allowed. <a>Sample Excel File</a>
           </p>
           <p>
@@ -168,6 +177,13 @@ function Uploadstudents() {
             example - consider columns A and B, A can be given in the column
             after or before B but inside A column, only A's entries should be
             there.
+            <a
+              className="text-gray-700 text-sm font-bold mb-2"
+              href="https://docs.google.com/spreadsheets/d/1SvnsENUUOCeW7FwTcOQ6rtoXJZ8A2f4oNQb8JEWWE5g/edit?usp=sharing"
+            >
+              Download Sample
+            </a>
+            .
           </p>
           <p>
             3. If any duplicate entry is found, then first copy will be taken

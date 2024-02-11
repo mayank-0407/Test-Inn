@@ -17,6 +17,7 @@ const importStudent = async (req, res) => {
     var userData = [];
     var thisid = req.params.id;
     const id = thisid.toString();
+    console.log("hi1");
     csv()
       .fromFile(req.file.path)
       .then(async (res) => {
@@ -39,8 +40,9 @@ const importStudent = async (req, res) => {
         }
         await user.insertMany(userData);
       });
-    res.send("Students Added Successfully").status(200);
+    res.status(200).send("Students Added Successfully");
   } catch (err) {
+    res.status(500).send("Error while uploading students");
     console.log(err);
   }
 };
@@ -61,7 +63,27 @@ const getAllQuestion = async (req, res) => {
   }
 };
 
+const deleteStudent = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+  const result = await user.deleteOne({ _id: id }).exec();
+
+  if (result.deletedCount === 1) {
+    res.status(200).json({ message: "Student deleted by admin" });
+  } else {
+    res.status(404).json({ message: "Student not found" });
+  }
+  } catch (err) {
+    console.error("Error in deleting Student by admin:", err);
+    res
+      .status(500)
+      .json({ msg: "Something went wrong while deleting the Student" });
+  }
+};
+
 module.exports = {
   importStudent,
   getAllQuestion,
+  deleteStudent,
 };

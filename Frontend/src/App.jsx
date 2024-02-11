@@ -17,6 +17,8 @@ import StudentDashboard from "./Pages/StudentDashboard";
 import StudentLogin from "./Pages/StudentLogin";
 import Instructions from "./Pages/Instructions";
 import Exportresult from "./Pages/Exportresult";
+import ViewStudents from "./Pages/ViewStudents";
+import DeleteStudent from "./Pages/DeleteStudent";
 import Test from "./Pages/Test";
 
 function App() {
@@ -35,6 +37,7 @@ function App() {
           <Route path="/quiz/view/:id" element={<ViewQuiz />} />
           <Route path="/quiz/delete/:id" element={<DeleteQuiz />} />
           <Route path="/quiz/upload/:id" element={<UploadQuiz />} />
+          <Route path="/quiz/student/view/:id" element={<ViewStudents />} />
           <Route
             path="/quiz/upload/students/:id"
             element={<Uploadstudents />}
@@ -45,6 +48,7 @@ function App() {
             element={<CreateQuestionFillUp />}
           />
           <Route path="/question/delete/:id" element={<DeleteQuestion />} />
+          <Route path="/student/delete/:id" element={<DeleteStudent />} />
           <Route path="/student/login" element={<StudentLogin />} />
           <Route path="/student/instructions" element={<Instructions />} />
           <Route path="/student/quiz" element={<StudentDashboard />} />
