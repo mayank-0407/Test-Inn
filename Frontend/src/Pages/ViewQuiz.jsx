@@ -88,11 +88,14 @@ function Viewquestion() {
             <Link to={`/quiz/upload/students/${id}`} className="btn-blue">
               Upload Students
             </Link>
-            <Link to={`/question/create/${id}`} className="btn-red">
-              Add Question
-            </Link>
             <Link to={`/export/result/${id}`} className="btn-purple">
               Download Result
+            </Link>
+            <Link to={`/question/create/${id}`} className="btn-red">
+              Add MCQ
+            </Link>
+            <Link to={`/question/create/fillup/${id}`} className="btn-red">
+              Add FillUp
             </Link>
             <a
               className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-full transition duration-200"
@@ -183,21 +186,14 @@ function Viewquestion() {
               <p className="text-gray-600 dark:text-gray-400">
                 Answer - {question.answer}
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
-                Options - {question.options.map((option) => option + ", ")}
-              </p>
+              {question.ismcq ? (
+                <p className="text-gray-600 dark:text-gray-400">
+                  Options - {question.options.map((option) => option + ", ")}
+                </p>
+              ) : (
+                <></>
+              )}
             </div>
-            {/* <div className="p-4 bg-white dark:bg-neutral-800">
-              <div className="flex justify-end">
-                <Link to={`/question/${question._id}`} className="btn-purple w-1/2">View</Link>
-                <Link
-                  to={`/question/delete/${question._id}`}
-                  className="btn-red w-1/2"
-                >
-                  Delete
-                </Link>
-              </div>
-            </div> */}
           </div>
         ))}
       </div>

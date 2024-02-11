@@ -19,6 +19,10 @@ var questionSchema = mongoose.Schema({
     options:{
         type  :Array,
         default:[]
+    },
+    ismcq: {
+        type: Boolean,
+        // required: true
     }
 })
 module.exports = mongoose.model('question',questionSchema)

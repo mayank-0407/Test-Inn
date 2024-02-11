@@ -6,13 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isLogin, setAuthentication } from "../utils/auth";
 
-function CreateQuestion() {
+function CreateQuestionFillUp() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ _id: "", name: "", email: "" });
   const [quizid, setQuizid] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [answer, setAnswer] = useState("");
-  const [options, setOptions] = useState([]);
   const { id } = useParams();
   let timeoutId;
 
@@ -46,12 +45,11 @@ function CreateQuestion() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4001/quiz/question/create",
+        "http://localhost:4001/quiz/question/fillup/create",
         {
           quizid,
           questionText,
           answer,
-          options,
         }
       );
       if (response.status === 200) {
@@ -67,12 +65,6 @@ function CreateQuestion() {
       console.error("Reset error:", error);
     }
   }
-
-  const handleTextareaChange = (e) => {
-    const inputText = e.target.value;
-    const optionsArray = inputText.split(",").map((option) => option.trim());
-    setOptions(optionsArray);
-  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -168,7 +160,7 @@ function CreateQuestion() {
             className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200"
           >
             <h2 className="text-2xl font-semibold mb-4 text-center">
-              Add A MCQ Question
+              Add A Fill-Up Question
             </h2>
             <div className="mb-4">
               <label
@@ -184,7 +176,7 @@ function CreateQuestion() {
                 value={questionText}
                 onChange={(e) => setQuestionText(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Question"
+                placeholder="Enter Question (Add _ for the fill-up)"
               />
             </div>
             <div className="mb-4">
@@ -204,22 +196,6 @@ function CreateQuestion() {
                 placeholder="Enter Question Answer"
               />
             </div>
-            <div className="mb-4">
-              <label
-                htmlFor="options"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Question Options (comma-separated):
-              </label>
-              <textarea
-                id="options"
-                name="options"
-                value={options.join(", ")}
-                onChange={handleTextareaChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Question Options (comma-separated)"
-              />
-            </div>
             <div className="flex items-center justify-center">
               <button
                 type="submit"
@@ -235,4 +211,4 @@ function CreateQuestion() {
   );
 }
 
-export default CreateQuestion;
+export default CreateQuestionFillUp;

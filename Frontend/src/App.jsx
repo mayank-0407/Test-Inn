@@ -1,28 +1,28 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Pages/Login'
-import Signup from './Pages/Signup'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Dashboard from './Pages/Dashboard';
-import Reset from './Pages/Reset';
-import Verifyreset from './Pages/Verifyreset';
-import ViewQuiz from './Pages/ViewQuiz';
-import CreateQuiz from './Pages/CreateQuiz';
-import CreateQuestion from './Pages/CreateQuestion';
-import DeleteQuestion from './Pages/DeleteQuestion';
-import DeleteQuiz from './Pages/DeleteQuiz';
-import UploadQuiz from './Pages/UploadQuiz';
-import Uploadstudents from './Pages/Uploadstudents';
-import StudentDashboard from './Pages/StudentDashboard';
-import StudentLogin from './Pages/StudentLogin';
-import Instructions from './Pages/Instructions';
-import Exportresult from './Pages/Exportresult';
-import Test from './Pages/Test';
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Dashboard from "./Pages/Dashboard";
+import Reset from "./Pages/Reset";
+import Verifyreset from "./Pages/Verifyreset";
+import ViewQuiz from "./Pages/ViewQuiz";
+import CreateQuiz from "./Pages/CreateQuiz";
+import CreateQuestion from "./Pages/CreateQuestion";
+import CreateQuestionFillUp from "./Pages/CreateQuestionFillUp";
+import DeleteQuestion from "./Pages/DeleteQuestion";
+import DeleteQuiz from "./Pages/DeleteQuiz";
+import UploadQuiz from "./Pages/UploadQuiz";
+import Uploadstudents from "./Pages/Uploadstudents";
+import StudentDashboard from "./Pages/StudentDashboard";
+import StudentLogin from "./Pages/StudentLogin";
+import Instructions from "./Pages/Instructions";
+import Exportresult from "./Pages/Exportresult";
+import Test from "./Pages/Test";
 
 function App() {
-  const isUserSignedIn = !!localStorage.getItem('token')
+  const isUserSignedIn = !!localStorage.getItem("token");
   return (
-    <BrowserRouter className='flex items-center justify-center'>
+    <BrowserRouter className="flex items-center justify-center">
       <div>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -35,8 +35,15 @@ function App() {
           <Route path="/quiz/view/:id" element={<ViewQuiz />} />
           <Route path="/quiz/delete/:id" element={<DeleteQuiz />} />
           <Route path="/quiz/upload/:id" element={<UploadQuiz />} />
-          <Route path="/quiz/upload/students/:id" element={<Uploadstudents />} />
+          <Route
+            path="/quiz/upload/students/:id"
+            element={<Uploadstudents />}
+          />
           <Route path="/question/create/:id" element={<CreateQuestion />} />
+          <Route
+            path="/question/create/fillup/:id"
+            element={<CreateQuestionFillUp />}
+          />
           <Route path="/question/delete/:id" element={<DeleteQuestion />} />
           <Route path="/student/login" element={<StudentLogin />} />
           <Route path="/student/instructions" element={<Instructions />} />

@@ -34,40 +34,67 @@ const createQuiz = async (req, res) => {
 const addQuestion = async (req, res) => {
   try {
     const quizId = req.body.quizid;
-
-    // Find questions for the specified quiz to determine the next questionId
     const questions = await Question.find({ quizid: quizId });
-
     const questionId = questions.length + 1;
-
-    var this_ans = req.body.options;
-    // const thisans=[];
-    // if (typeof this_ans === 'string') {
-    //   thisans = this_ans.split(', ');
-
-    //   console.log(thisans);
-    // } else {
-    //   console.error("The input is not a string.");
-    // }
+    var queOptions = req.body.options;
+    const queAnswer = req.body.answer;
+    console.log(queOptions);
+    console.log(queAnswer);
+    if (queOptions.includes(queAnswer) == false) {
+      return res
+        .status(203)
+        .json({ message: "The Options Must contain the answer!" });
+    }
 
     const newQuestion = new Question({
       quizid: quizId,
       questionId: questionId,
       questionText: req.body.questionText,
       answer: req.body.answer,
-      options: this_ans,
+      options: queOptions,
+      ismcq:true
     });
 
     const savedQuestion = await newQuestion.save();
 
     if (savedQuestion) {
-      return res.status(200).json({ message: "Question added successfully" });
+      return res.status(200).json({ message: "Question added successfully!" });
     } else {
-      return res.status(500).json({ msg: "Failed to add the question" });
+      return res.status(400).json({ message: "Failed to add the question!" });
     }
-  } catch (error) {
+  }
+   catch (error) {
     console.error(error);
-    return res.status(500).json({ msg: "Internal server error" });
+    return res.status(500).json({ message: "Internal Unknown server error!" });
+  }
+};
+
+const addQuestionFillUp = async (req, res) => {
+  try {
+    const quizId = req.body.quizid;
+    const questions = await Question.find({ quizid: quizId });
+    const questionId = questions.length + 1;
+
+    const newQuestion = new Question({
+      quizid: quizId,
+      questionId: questionId,
+      questionText: req.body.questionText,
+      answer: req.body.answer,
+      options: [],
+      ismcq:false
+    });
+
+    const savedQuestion = await newQuestion.save();
+
+    if (savedQuestion) {
+      return res.status(200).json({ message: "Question added successfully!" });
+    } else {
+      return res.status(400).json({ message: "Failed to add the question!" });
+    }
+  }
+   catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Unknown server error!" });
   }
 };
 
@@ -228,4 +255,5 @@ module.exports = {
   deleteQuestion,
   setResult,
   exportResult,
+  addQuestionFillUp,
 };

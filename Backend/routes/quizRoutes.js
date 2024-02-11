@@ -7,6 +7,7 @@ const router = Router();
 router.post("/create", quizController.createQuiz);
 router.post("/submit", quizController.setResult);
 router.post("/question/create", quizController.addQuestion);
+router.post("/question/fillup/create", quizController.addQuestionFillUp);
 router.post("/upload/:id", quizController.uploadQuiz);
 router.post("/deletes/:id", quizController.deleteQuiz);
 router.get("/:id", quizController.getHomequiz);
