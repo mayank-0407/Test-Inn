@@ -1,4 +1,4 @@
 # Test-Inn
 
-- Make sure to un comment in vite.config for docker
-- add --host 5173 in dev
+- Make sure to uncomment in vite. config for docker
+- While containerizing make sure to change "dev": "vite" to "dev": "vite --host 5173".
