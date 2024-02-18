@@ -184,7 +184,7 @@ function Viewquestion() {
                 QuizID - {question.questionId}
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Quiz Name - {question.questionText}
+                Question - {question.questionText}
               </p>
               <p className="text-gray-600 dark:text-gray-400">
                 Answer - {question.answer}
