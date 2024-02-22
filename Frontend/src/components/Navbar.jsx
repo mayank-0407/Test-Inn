@@ -41,9 +41,17 @@ function Navbar() {
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/dashboard/create/quiz" className="btn-blue">
+            {/* <Link to="/dashboard/create/quiz" id="createQuiz1" className="btn-blue">
               Create Quiz
-            </Link>
+            </Link> */}
+            <a
+              className="hidden lg:inline-block py-2 px-6 bg-white-500 hover:bg-blue-600 text-m text-black font-bold rounded-full transition duration-200"
+              href="/dashboard/create/quiz"
+              id="createquiz"
+              name="createquiz"
+            >
+              Create Quiz
+            </a>
             <a
               className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-full transition duration-200"
               href="#"
@@ -90,7 +98,11 @@ function Navbar() {
           </div>
           <div className="mt-auto">
             <div className="pt-6">
-              <Link to="/dashboard/create/quiz" className="btn-blue">
+              <Link
+                to="/dashboard/create/quiz"
+                id="createQuiz"
+                className="btn-blue"
+              >
                 Create Quiz
               </Link>
               <a

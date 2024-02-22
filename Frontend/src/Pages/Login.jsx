@@ -32,6 +32,18 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (email.trim().length === 0) {
+      setifError(true);
+      setError("Email Con not be empty!");
+      return;
+    }
+    let isEmailValid = email.includes("@") && email.includes(".com");
+    if (isEmailValid === false) {
+      setError("Enter a Valid Email ID!");
+      setifError(true);
+      return;
+    }
+
     if (password.trim().length === 0) {
       console.log("3");
       setifError(true);
@@ -111,6 +123,7 @@ export default function SignIn() {
             sx={{ mt: 1 }}
           >
             <TextField
+              type="email"
               margin="normal"
               required
               fullWidth

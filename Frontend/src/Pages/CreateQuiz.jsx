@@ -32,6 +32,15 @@ function CreateQuiz() {
   async function handleQuizCreate(e) {
     e.preventDefault();
     try {
+
+      if (quizname.trim().length === 0) {
+        toast.error("Quiz Name Con not be empty!");
+        return;
+      }
+      if (quizdescription.trim().length === 0) {
+        toast.error("Quiz Description Con not be empty!");
+        return;
+      }
       const response = await axios.post("http://localhost:4001/quiz/create", {
         quizname,
         quizdescription,

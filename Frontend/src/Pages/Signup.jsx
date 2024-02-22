@@ -23,15 +23,6 @@ import { isLogin, setAuthentication } from "../utils/auth";
 const defaultTheme = createTheme();
 
 export default function Test() {
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     const data = new FormData(event.currentTarget);
-  //     console.log({
-  //       email: data.get("email"),
-  //       password: data.get("password"),
-  //     });
-  //   };
-
   const [error, setError] = useState("");
   const [ifError, setifError] = useState(false);
   const [fname, setfName] = useState("");
@@ -46,22 +37,27 @@ export default function Test() {
     const name = fname.concat(" ", lname);
 
     let isValid = false;
-    if (name.trim().length === 0) {
-      console.log("1");
-      setError("Please Enter a Name");
+    if (fname.trim().length === 0 || lname.trim().length === 0) {
+      setError("First/Last Name can not be Empty!");
+      isValid = false;
+      setifError(true);
+      return;
+    }
+    if (email.trim().length === 0) {
+      setError("Email can not be Empty!");
       isValid = false;
       setifError(true);
       return;
     }
     let isEmailValid = email.includes("@") && email.includes(".com");
     if (isEmailValid === false) {
-      setError("Enter Valid Gmail id (Email)!");
+      setError("Enter a Valid Email ID!");
       isValid = false;
       setifError(true);
       return;
     }
 
-    if (password.trim().length === 0) {
+    if (password.trim().length === 0 || confirmPassword.trim().length === 0) {
       console.log("3");
       isValid = false;
       setifError(true);
@@ -78,11 +74,11 @@ export default function Test() {
       setifError(true);
       return;
     }
-    if (password.length < 8 || password.length > 15) {
-      setError("Password must be between 8 and 15 characters!");
-      setifError(true);
-      return;
-    }
+    // if (password.length < 8 || password.length > 15) {
+    //   setError("Password must be between 8 and 15 characters!");
+    //   setifError(true);
+    //   return;
+    // }
 
     if (!/\d/.test(password)) {
       setError("Password must contain at least one digit!");
@@ -241,14 +237,14 @@ export default function Test() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="Click Here to Verify That you are a Human."
+                  label="Remember Me."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

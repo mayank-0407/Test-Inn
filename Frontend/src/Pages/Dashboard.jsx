@@ -60,6 +60,15 @@ function Dashboard() {
         <div className="p-4 text-2xl font-semibold">
           Hi {user.name}, Welcome to Your Dashboard!
         </div>
+
+      <a
+        className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-m text-white font-bold rounded-full transition duration-200"
+        href="/dashboard/create/quiz"
+        id="hiddenCreateQuiz"
+        name="hiddenCreateQuiz1"
+      >
+        Create Quiz
+      </a>
       </div>
 
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
