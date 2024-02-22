@@ -53,7 +53,7 @@ function CreateQuiz() {
       }, 3000);
     } catch (error) {
       toast.error("Error");
-      console.error("Reset error:", error);
+      console.error("Create Quiz error:", error);
     }
   }
 

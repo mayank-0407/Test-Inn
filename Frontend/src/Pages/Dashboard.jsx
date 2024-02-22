@@ -72,7 +72,7 @@ function Dashboard() {
       </div>
 
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-        {quiz.map((thisquiz) => (
+        {quiz.map((thisquiz,idx) => (
           <div
             key={thisquiz._id}
             className="relative rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-700"
@@ -88,15 +88,15 @@ function Dashboard() {
               </Link>
             )}
             <Link
-              to={`/quiz/view/${thisquiz._id}`}
+              to={`/quiz/delete/${thisquiz._id}`}
               className="absolute top-2 right-2 p-2 btn-red"
             >
               X
             </Link>
             <div className="p-4">
               <Link to={`/quiz/view/${thisquiz._id}`} className="btn-purple">
-                <h3 className="text-xl font-semibold mb-2">
-                  {thisquiz.quizname}
+                <h3 className="text-xl font-semibold mb-2" id={idx}>
+                 {idx+1}. {thisquiz.quizname}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400">
                   QuizID - {thisquiz._id}
