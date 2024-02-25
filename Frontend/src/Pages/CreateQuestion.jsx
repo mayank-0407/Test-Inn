@@ -44,6 +44,29 @@ function CreateQuestion() {
 
   async function handleQuizCreate(e) {
     e.preventDefault();
+
+    if (questionText.trim().length === 0) {
+      toast.error("Question Con not be empty!");
+      return;
+    }
+    if (answer.trim().length === 0) {
+      toast.error("Answer of the question Con not be empty!");
+      return;
+    }
+    if (options.length !== 4) {
+      toast.error("The question's options must have 4 options!");
+      return;
+    }
+    if (options.map((opt) => opt.trim()).some((opt) => opt.length === 0)) {
+      toast.error(
+        "There must be options for the question. Options cannot be empty!"
+      );
+      return;
+    } else if (!options.includes(answer)) {
+      toast.error("Options must include the answer for the question!");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:4001/quiz/question/create",

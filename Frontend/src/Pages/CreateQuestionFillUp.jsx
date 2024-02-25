@@ -43,6 +43,18 @@ function CreateQuestionFillUp() {
 
   async function handleQuizCreate(e) {
     e.preventDefault();
+    if (questionText.trim().length === 0) {
+      toast.error("Question Con not be empty!");
+      return;
+    }
+    if (answer.trim().length === 0) {
+      toast.error("Answer of the question Con not be empty!");
+      return;
+    }
+    if (!questionText.includes("_")) {
+      toast.error("Please Add '_' in the Question Text to make it a fill up!");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:4001/quiz/question/fillup/create",
