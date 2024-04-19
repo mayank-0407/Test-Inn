@@ -21,8 +21,8 @@ function Instructions() {
         );
 
         if (checkResponse.data[0].upload === false) {
-          toast.error("Quiz Not Uploaded Yet");
           logOut();
+          toast.error("Quiz Not Uploaded Yet");
           navigate("/student/login");
         } else {
           const alreadyGiven = await quizGiven(loggedIn.data.email);

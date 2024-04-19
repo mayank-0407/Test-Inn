@@ -58,7 +58,7 @@ export default function SignIn() {
         return;
       } else {
         setifError(true);
-        setError("Username is Not registered or this is student account");
+        setError("Username is Not registered or this is not student account");
         return;
       }
     } catch (error) {

@@ -106,7 +106,7 @@ function Quiz() {
         <NavbarStudent />
         <div className="text-center mt-8">
           <h1 className="text-3xl font-semibold">
-            Thanks for giving the quiz!
+            Thanks for giving the quiz! {total}
           </h1>
         </div>
       </div>

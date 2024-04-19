@@ -5,6 +5,7 @@ const Student = require("../models/Student");
 const Result = require("../models/Result");
 const jwt = require("jsonwebtoken");
 const CsvParser = require("json2csv").Parser;
+var csv=require('csvtojson');
 
 const createQuiz = async (req, res) => {
   const whoid_ = req.body.ownerid; // Assuming userId is in the request object
@@ -175,7 +176,7 @@ const setResult = async (req, res) => {
   try {
     var quiz_id = req.body.quizid;
     var student_id = req.body.studentid;
-    var total_marks_ = req.body.thistotal;
+    var total_marks_ = req.body.total;
     total_marks_++;
     var total_marks = total_marks_.toString();
 
@@ -252,16 +253,17 @@ const exportResult = async (req, res) => {
       myResult.push({ quizid, email, marks });
     });
 
-    const csvField = ["QuizId,Email,Marks"];
+    const csvField = ["QuizId", "Email", "Marks"];
     const csvparser = new CsvParser({ csvField });
     csvData = csvparser.parse(myResult);
-    res.setHeader("content-type", "text/csv");
-    res.setHeader("content-Disposition", "attachment:filename=Result.csv");
-    res.status(200).end(csvData);
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", "attachment:filename=Result.csv");
+    res.status(200).send(csvData);
   } catch (err) {
+    console.error(err); // Log the error for debugging
     res
       .status(500)
-      .json({ msg: "Something went wrong while exporting the question" });
+      .json({ msg: "Something went wrong while exporting the result" });
   }
 };
 

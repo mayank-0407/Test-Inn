@@ -1,44 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Navbarviewquiz from "../components/Navbarviewquiz";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin, isStudent, setAuthentication } from "../utils/auth";
+import { isLogin, isStudent } from "../utils/auth";
+import { saveAs } from 'file-saver';
 
 function Exportresult() {
   const navigate = useNavigate();
-  const [user, setUser] = useState({ name: "", email: "" });
   const { id } = useParams();
 
   useEffect(() => {
-    const authenticate = async () => {
-      const loggedIn = await isLogin();
+    const fetchData = async () => {
+      try {
+        const loggedIn = await isLogin();
+        if (!loggedIn.auth) {
+          navigate("/");
+          return;
+        }
 
-      if (loggedIn.auth) {
-        setUser(loggedIn.data);
         const Isstudent = await isStudent(loggedIn.data.email);
         if (Isstudent) {
           navigate("/student/login");
+          return;
         }
-        try {
-          const response = await axios.get(
-            `http://127.0.0.1:4001/quiz/get/result/${id}`
-          );
+
+        const response = await axios.get(
+          `http://127.0.0.1:4001/quiz/get/result/${id}`,
+          { responseType: "blob" }
+        );
+
+        if (response.status === 200) {
+          const blob = new Blob([response.data], { type: "text/csv" });
+          saveAs(blob, "result.csv");
           toast.success("Result Downloaded Successfully");
-          timeoutId = setTimeout(() => {
+          var timeoutId = setTimeout(() => {
             navigate("/dashboard");
           }, 2000);
-        } catch (error) {
-          toast.error("Error");
-          console.error("error while fetching Result:", error);
+        } else {
+          toast.error("Failed to download result");
         }
-      } else {
-        navigate("/");
+      } catch (error) {
+        console.error("Error while fetching result:", error);
+        toast.error("Error");
       }
     };
-    authenticate();
-  }, []);
+
+    fetchData();
+  }, [id, navigate]);
 
   return (
     <div className="bg-gray-100 min-h-screen">
