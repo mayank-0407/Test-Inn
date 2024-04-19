@@ -153,6 +153,23 @@ const getHomequiz = async (req, res) => {
     res.status(500).json({ msg: "Some error occurred" });
   }
 };
+const getStudentHomequiz = async (req, res) => {
+  try {
+    owner_id_ = req.params.id;
+    owner_id = owner_id_.toString();
+    const qz = await Quiz.find({ _id: owner_id });
+
+    if (qz) {
+      console.log(qz);
+      res.status(200).json(qz);
+    } else {
+      res.status(203).json({ msg: "No quizzes found" });
+    }
+  } catch (err) {
+    console.error("Error in retrieving quizzes:", err);
+    res.status(500).json({ msg: "Some error occurred" });
+  }
+};
 
 const setResult = async (req, res) => {
   try {
@@ -274,4 +291,5 @@ module.exports = {
   exportResult,
   addQuestionFillUp,
   getStudents,
+  getStudentHomequiz,
 };

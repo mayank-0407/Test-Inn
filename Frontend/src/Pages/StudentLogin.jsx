@@ -144,26 +144,13 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
+            {/* <Grid container>
               <Grid item xs>
                 <Link href="/reset" to="/reset" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
-                <Link to="/signup" href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs></Grid>
-              <Grid item>
-                <Link to="/student/login" href="/student/login" variant="body2">
-                  {"Are You a Student? Login Here"}
-                </Link>
-              </Grid>
-            </Grid>
+            </Grid> */}
           </Box>
         </Box>
       </Container>

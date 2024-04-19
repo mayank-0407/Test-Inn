@@ -13,6 +13,7 @@ router.post("/deletes/:id", quizController.deleteQuiz);
 router.post("/student/deletes/:id", studentController.deleteStudent);
 router.post("/student/single/add/:id", studentController.addStudent);
 router.get("/:id", quizController.getHomequiz);
+router.get("/student/:id", quizController.getStudentHomequiz);
 router.get("/students/:id", quizController.getStudents);
 router.get("/question/:id", quizController.getAllQuestion);
 router.post("/question/delete/:id", quizController.deleteQuestion);
