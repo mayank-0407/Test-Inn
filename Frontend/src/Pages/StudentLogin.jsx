@@ -1,19 +1,42 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isLogin, setAuthentication } from "../utils/auth";
-import NavbarStudent from "../components/NavbarStudent";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Alert from "@mui/material/Alert";
 
-function Login() {
+const defaultTheme = createTheme();
+
+export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [ifError, setifError] = useState(false);
 
   const navigate = useNavigate();
 
-  async function handleSignup(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (username.trim().length === 0) {
+      setifError(true);
+      setError("Username Con not be empty!");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:4001/api/student/login",
@@ -23,16 +46,26 @@ function Login() {
         }
       );
       console.log("Sign-in result:", response);
-      toast.success("Account logged in Successfully");
-      console.log(response.data.token);
-      setAuthentication(response.data.token);
-      navigate("/student/instructions");
+      if (response.status === 200) {
+        toast.success("Account logged in Successfully");
+        setifError(true);
+        setError("Login Successful!");
+        setAuthentication(response.data.token);
+        navigate("/student/instructions");
+      } else if (response.status === 203) {
+        setifError(true);
+        setError(response.data.message);
+        return;
+      } else {
+        setifError(true);
+        setError("Username is Not registered or this is student account");
+        return;
+      }
     } catch (error) {
-      toast.error("Error");
-      console.error("Sign-in error:", error);
+      setifError(true);
+      setError(error);
     }
-  }
-
+  };
   useEffect(() => {
     const authenticate = async () => {
       const loggedIn = await isLogin();
@@ -48,68 +81,92 @@ function Login() {
     authenticate();
   }, []);
 
-  // ...
-
   return (
-    <div>
-      <NavbarStudent />
+    <ThemeProvider theme={defaultTheme}>
       <ToastContainer />
-      <div className="flex justify-center items-center ">
-        <div className="max-w-md w-full">
-          <div className="text-3xl font-bold mb-5 text-center">Login</div>
-
-          <form
-            onSubmit={handleSignup}
-            className="bg-white border-4 border-blue-150 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          {ifError && <Alert severity="error">{error}</Alert>}
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
           >
-            <div className="mb-4">
-              <label
-                className="block text-sm font-bold mb-2"
-                htmlFor="username"
-              >
-                Username:
-              </label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter Username"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-sm font-bold mb-2"
-                htmlFor="password"
-              >
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter Password"
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <button
-                type="submit"
-                className="bg-blue-600 rounded p-2 w-full text-white"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-        </div>
-        <ToastContainer />
-      </div>
-    </div>
+            <TextField
+              type="email"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              label="Email Address / Username"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="/reset" to="/reset" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/signup" href="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs></Grid>
+              <Grid item>
+                <Link to="/student/login" href="/student/login" variant="body2">
+                  {"Are You a Student? Login Here"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
-
-export default Login;

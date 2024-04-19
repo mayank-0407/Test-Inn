@@ -6,12 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isLogin, isStudent, setAuthentication } from "../utils/auth";
 
-function CreateQuestionFillUp() {
+function CreateOneStudent() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ _id: "", name: "", email: "" });
-  const [quizid, setQuizid] = useState("");
-  const [questionText, setQuestionText] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [semail, setSemail] = useState("");
+  const [sname, setSname] = useState("");
+  const [spassword, setSpassword] = useState("");
   const { id } = useParams();
   let timeoutId;
 
@@ -45,36 +45,38 @@ function CreateQuestionFillUp() {
     authenticate();
   }, []);
 
-  async function handleQuizCreate(e) {
+  async function handleStudentCreate(e) {
     e.preventDefault();
-    if (questionText.trim().length === 0) {
-      toast.error("Question Con not be empty!");
+
+    if (semail.trim().length === 0) {
+      toast.error("Student Email Con not be empty!");
       return;
     }
-    if (answer.trim().length === 0) {
-      toast.error("Answer of the question Con not be empty!");
+    if (sname.trim().length === 0) {
+      toast.error("Student Name Con not be empty!");
       return;
     }
-    if (!questionText.includes("_")) {
-      toast.error("Please Add '_' in the Question Text to make it a fill up!");
+    if (spassword.trim().length === 0) {
+      toast.error("Student Password Con not be empty!");
       return;
     }
+
     try {
       const response = await axios.post(
-        "http://localhost:4001/quiz/question/fillup/create",
+        `http://localhost:4001/quiz/student/single/add/${id}`,
         {
-          quizid,
-          questionText,
-          answer,
+          semail,
+          sname,
+          spassword,
         }
       );
       if (response.status === 200) {
-        toast.success("Question Added Successfully");
+        toast.success("Student Added Successfully");
         timeoutId = setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
-      } else if (response.status === 203) {
-        toast.error("Error: Your Options must include the Answer!");
+      } else {
+        toast.error("Error: Unable to add Student!");
       }
     } catch (error) {
       toast.error("Error");
@@ -172,46 +174,64 @@ function CreateQuestionFillUp() {
       <div className="flex justify-center items-center h-screen">
         <div className="w-full max-w-md mx-auto">
           <form
-            onSubmit={handleQuizCreate}
+            onSubmit={handleStudentCreate}
             className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-gray-200"
           >
             <h2 className="text-2xl font-semibold mb-4 text-center">
-              Add A Fill-Up Question
+              Add A Student
             </h2>
             <div className="mb-4">
               <label
-                htmlFor="questionText"
+                htmlFor="semail"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Question Text:
+                Student Email
               </label>
               <input
                 type="text"
-                id="questionText"
-                name="questionText"
-                value={questionText}
-                onChange={(e) => setQuestionText(e.target.value)}
+                id="semail"
+                name="semail"
+                value={semail}
+                onChange={(e) => setSemail(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Question (Add _ for the fill-up)"
+                placeholder="Enter Student's Email"
               />
             </div>
             <div className="mb-4">
               <label
-                htmlFor="answer"
+                htmlFor="sname"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Question Answer:
+                Student Name
               </label>
               <input
                 type="text"
-                id="answer"
-                name="answer"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
+                id="sname"
+                name="sname"
+                value={sname}
+                onChange={(e) => setSname(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Question Answer"
+                placeholder="Enter Student's Name"
               />
             </div>
+            <div className="mb-4">
+              <label
+                htmlFor="spassword"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Student Id's Password
+              </label>
+              <input
+                type="password"
+                id="spassword"
+                name="spassword"
+                value={spassword}
+                onChange={(e) => setSpassword(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter Student's Password"
+              />
+            </div>
+
             <div className="flex items-center justify-center">
               <button
                 type="submit"
@@ -227,4 +247,4 @@ function CreateQuestionFillUp() {
   );
 }
 
-export default CreateQuestionFillUp;
+export default CreateOneStudent;

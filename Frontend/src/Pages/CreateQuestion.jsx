@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin, setAuthentication } from "../utils/auth";
+import { isLogin, isStudent, setAuthentication } from "../utils/auth";
 
 function CreateQuestion() {
   const navigate = useNavigate();
@@ -34,6 +34,10 @@ function CreateQuestion() {
 
       if (loggedIn.auth) {
         setUser(loggedIn.data);
+        const Isstudent = await isStudent(loggedIn.data.email);
+        if (Isstudent) {
+          navigate("/student/login");
+        }
         setQuizid(id);
       } else {
         navigate("/");

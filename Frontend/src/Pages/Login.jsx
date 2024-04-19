@@ -171,6 +171,15 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+            <Grid container>
+              <Grid item xs>
+              </Grid>
+              <Grid item>
+                <Link to="/student/login" href="/student/login" variant="body2">
+                  {"Are You a Student? Login Here"}
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>

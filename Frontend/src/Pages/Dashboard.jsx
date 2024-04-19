@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin } from "../utils/auth";
+import { isLogin,isStudent } from "../utils/auth";
 import Navbar from "../components/Navbar";
 
 function Dashboard() {
@@ -14,9 +14,13 @@ function Dashboard() {
   useEffect(() => {
     const authenticate = async () => {
       const loggedIn = await isLogin();
-
+      console.log("loggedIn", loggedIn);
       if (loggedIn.auth) {
         setUser(loggedIn.data);
+        const Isstudent = await isStudent(loggedIn.data.email);
+        if (Isstudent) {
+          navigate("/student/login");
+        }
         toast.success("Welcome To Dashboard");
 
         try {

@@ -32,3 +32,7 @@ export const isLogin = async () => {
   return false;
 };
 
+export const isStudent = async (email) => {
+  const res = await axios.post(`${baseURL}/auth/checkStudent`, { email });
+  return res.data.message;
+};

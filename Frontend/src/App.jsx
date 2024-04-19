@@ -19,6 +19,7 @@ import Instructions from "./Pages/Instructions";
 import Exportresult from "./Pages/Exportresult";
 import ViewStudents from "./Pages/ViewStudents";
 import DeleteStudent from "./Pages/DeleteStudent";
+import CreateOneStudent from "./Pages/CreateOneStudent";
 import Test from "./Pages/Test";
 
 function App() {
@@ -41,6 +42,10 @@ function App() {
           <Route
             path="/quiz/upload/students/:id"
             element={<Uploadstudents />}
+          />
+          <Route
+            path="/quiz/add/students/:id"
+            element={<CreateOneStudent />}
           />
           <Route path="/question/create/:id" element={<CreateQuestion />} />
           <Route

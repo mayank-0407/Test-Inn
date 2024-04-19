@@ -7,7 +7,12 @@ module.exports = async (req, res) => {
   const { username, password } = req.body;
 
   // check if email exists in DB!
-  const dbUser = await User.findOne({ studentid: username }).exec();
+  var dbUser = await User.findOne({ studentid: username }).exec();
+  var dbUser1 = await User.findOne({ email: username }).exec();
+  if(dbUser1){
+    dbUser=dbUser1;
+  }
+
   if (dbUser && dbUser.isStudent) {
     const match = await bcrypt.compare(password, dbUser.password);
     const email = dbUser.email;
@@ -28,9 +33,9 @@ module.exports = async (req, res) => {
         token,
       });
     } else {
-      res.status(400).json({ message: "Username or Password incorrect" });
+      res.status(203).json({ message: "Username or Password incorrect" });
     }
   } else {
-    res.status(400).json({ message: "Username is Not registered or this is student account" });
+    res.status(203).json({ message: "Username is Not registered or this is student account" });
   }
 };

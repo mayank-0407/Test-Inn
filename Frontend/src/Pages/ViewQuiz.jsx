@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin, setAuthentication } from "../utils/auth";
+import { isLogin, isStudent, setAuthentication } from "../utils/auth";
 
 function Viewquestion() {
   const navigate = useNavigate();
@@ -28,6 +28,10 @@ function Viewquestion() {
 
       if (loggedIn.auth) {
         setUser(loggedIn.data);
+        const Isstudent = await isStudent(loggedIn.data.email);
+        if (Isstudent) {
+          navigate("/student/login");
+        }
         try {
           const response = await axios.get(
             `http://localhost:4001/quiz/question/${id}`
@@ -85,8 +89,11 @@ function Viewquestion() {
             <Link to="/dashboard" className="btn-blue">
               Home
             </Link>
-            <Link to={`/quiz/upload/students/${id}`} className="btn-blue">
+            <Link to={`/quiz/add/students/${id}`} className="btn-blue">
               Add Students
+            </Link>
+            <Link to={`/quiz/upload/students/${id}`} className="btn-blue">
+              Upload Students
             </Link>
             <Link to={`/quiz/student/view/${id}`} className="btn-blue">
               All Students

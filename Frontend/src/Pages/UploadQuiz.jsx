@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin, setAuthentication } from "../utils/auth";
+import { isLogin,isStudent, setAuthentication } from "../utils/auth";
 
 function UploadQuiz() {
   const navigate = useNavigate();
@@ -19,6 +19,10 @@ function UploadQuiz() {
       }, 2000);
       if (loggedIn.auth) {
         setUser(loggedIn.data);
+        const Isstudent = await isStudent(loggedIn.data.email);
+        if (Isstudent) {
+          navigate("/student/login");
+        }
         try {
           const response = await axios.post(
             `http://localhost:4001/quiz/upload/${id}`

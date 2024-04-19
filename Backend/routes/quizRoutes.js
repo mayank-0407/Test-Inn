@@ -11,6 +11,7 @@ router.post("/question/fillup/create", quizController.addQuestionFillUp);
 router.post("/upload/:id", quizController.uploadQuiz);
 router.post("/deletes/:id", quizController.deleteQuiz);
 router.post("/student/deletes/:id", studentController.deleteStudent);
+router.post("/student/single/add/:id", studentController.addStudent);
 router.get("/:id", quizController.getHomequiz);
 router.get("/students/:id", quizController.getStudents);
 router.get("/question/:id", quizController.getAllQuestion);

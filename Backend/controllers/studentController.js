@@ -3,6 +3,7 @@ const Quiz = require("../models/Quiz");
 const Question = require("../models/Question");
 const csv = require("csvtojson");
 const bcrypt = require("bcrypt");
+const Student = require("../models/Student");
 
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -42,7 +43,37 @@ const importStudent = async (req, res) => {
       });
     res.status(200).send("Students Added Successfully");
   } catch (err) {
-    res.status(500).send("Error while uploading students");
+    res.status(203).send("Error while uploading students");
+    console.log(err);
+  }
+};
+
+const addStudent = async (req, res) => {
+  try {
+    var pass1 = getRandomNumber(100000, 99999999);
+    var thisid = req.params.id;
+    const id = thisid.toString();
+    var [new_username, domain] = req.body.semail.split("@");
+    new_username += pass1;
+    console.log("hi");
+
+    const hashedPassword = await bcrypt.hash(req.body.spassword, 10);
+
+    const student = await user.create({
+      name: req.body.sname,
+      email: req.body.semail,
+      password: hashedPassword,
+      isStudent: true,
+      quizid: id,
+      studentid: new_username,
+    });
+    if (student) {
+      res.status(200).json({ message: "Student added successfully!" });
+    } else {
+      res.status(203).json({ message: "Failed to save the Student" });
+    }
+  } catch (err) {
+    res.status(203).json({ message: "Error to Add the Student" });
     console.log(err);
   }
 };
@@ -59,7 +90,7 @@ const getAllQuestion = async (req, res) => {
     }
   } catch (err) {
     console.error("Error in retrieving questions:", err);
-    res.status(500).json({ errormsg: "Some error occurred" });
+    res.status(203).json({ errormsg: "Some error occurred" });
   }
 };
 
@@ -67,17 +98,17 @@ const deleteStudent = async (req, res) => {
   const id = req.params.id;
 
   try {
-  const result = await user.deleteOne({ _id: id }).exec();
+    const result = await user.deleteOne({ _id: id }).exec();
 
-  if (result.deletedCount === 1) {
-    res.status(200).json({ message: "Student deleted by admin" });
-  } else {
-    res.status(404).json({ message: "Student not found" });
-  }
+    if (result.deletedCount === 1) {
+      res.status(200).json({ message: "Student deleted by admin" });
+    } else {
+      res.status(404).json({ message: "Student not found" });
+    }
   } catch (err) {
     console.error("Error in deleting Student by admin:", err);
     res
-      .status(500)
+      .status(203)
       .json({ msg: "Something went wrong while deleting the Student" });
   }
 };
@@ -86,4 +117,5 @@ module.exports = {
   importStudent,
   getAllQuestion,
   deleteStudent,
+  addStudent,
 };
