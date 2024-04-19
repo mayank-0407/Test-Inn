@@ -36,3 +36,7 @@ export const isStudent = async (email) => {
   const res = await axios.post(`${baseURL}/auth/checkStudent`, { email });
   return res.data.message;
 };
+export const quizGiven = async (email) => {
+  const res = await axios.post(`${baseURL}/auth/checkGiven`, { email });
+  return res.data.message;
+};

@@ -3,9 +3,8 @@ import NavbarStudent from "../components/NavbarStudent";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
-import { logOut } from "../utils/auth";
+import { logOut, quizGiven, isLogin } from "../utils/auth";
 
 function Quiz() {
   const navigate = useNavigate();
@@ -17,6 +16,7 @@ function Quiz() {
   const [submitted, setSubmitted] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [total, setTotal] = useState(0);
+  const [quizGivenAlready, setquizGivenAlready] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +35,11 @@ function Quiz() {
             logOut();
             navigate("/student/login");
           } else {
+            const alreadyGiven = await quizGiven(loggedIn.data.email);
+            console.log("Already Given:", alreadyGiven);
+            if (alreadyGiven) {
+              setquizGivenAlready(true);
+            }
             const response = await axios.get(
               `http://localhost:4001/quiz/student/show/${loggedIn.data.quizid}`
             );
@@ -48,6 +53,19 @@ function Quiz() {
     };
     fetchData();
   }, []);
+
+  if (quizGivenAlready) {
+    return (
+      <div>
+        <NavbarStudent />
+        <div className="text-center mt-8">
+          <h1 className="text-3xl font-semibold">
+            You have already Submitted the Quiz!
+          </h1>
+        </div>
+      </div>
+    );
+  }
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -105,8 +123,12 @@ function Quiz() {
     <div>
       <NavbarStudent />
       <div className="flex justify-between items-center p-4">
-        <h2 className="text-2xl font-semibold">Give Your Best for the Quiz!!</h2>
-        <div>{currentQuestionIndex + 1}/{quiz.length}</div>
+        <h2 className="text-2xl font-semibold">
+          Give Your Best for the Quiz!!
+        </h2>
+        <div>
+          {currentQuestionIndex + 1}/{quiz.length}
+        </div>
       </div>
       <div className="container mx-auto mt-6">
         <div className="rounded-lg overflow-hidden shadow-lg bg-white p-4">
@@ -133,7 +155,9 @@ function Quiz() {
               onClick={goToNextQuestion}
               className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 mt-4 float-right"
             >
-              {currentQuestionIndex === quiz.length - 1 ? "Submit Quiz" : "Next"}
+              {currentQuestionIndex === quiz.length - 1
+                ? "Submit Quiz"
+                : "Next"}
             </button>
           </form>
         </div>

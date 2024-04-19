@@ -28,7 +28,11 @@ const userSchema = new mongoose.Schema({
   },
   studentid:{
     type:String,
-  }
+  },
+  gaveQuiz: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const User = mongoose.model("user", userSchema);

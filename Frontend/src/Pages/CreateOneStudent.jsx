@@ -188,7 +188,7 @@ function CreateOneStudent() {
                 Student Email
               </label>
               <input
-                type="text"
+                type="email"
                 id="semail"
                 name="semail"
                 value={semail}

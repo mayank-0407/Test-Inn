@@ -4,11 +4,12 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { isLogin, setAuthentication, logOut } from "../utils/auth";
+import { isLogin, setAuthentication, quizGiven, logOut } from "../utils/auth";
 
 function Instructions() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ name: "", email: "" });
+  const [quizGivenAlready, setquizGivenAlready] = useState(false);
 
   useEffect(() => {
     const authenticate = async () => {
@@ -24,6 +25,11 @@ function Instructions() {
           logOut();
           navigate("/student/login");
         } else {
+          const alreadyGiven = await quizGiven(loggedIn.data.email);
+          console.log("Already Given:", alreadyGiven)
+          if (alreadyGiven) {
+            setquizGivenAlready(true);
+          }
           setUser(loggedIn.data);
           navigate("/student/instructions");
         }
@@ -33,6 +39,19 @@ function Instructions() {
     };
     authenticate();
   }, []);
+
+  if (quizGivenAlready) {
+    return (
+      <div>
+        <NavbarStudent />
+        <div className="text-center mt-8">
+          <h1 className="text-3xl font-semibold">
+            You have already Submitted the Quiz!
+          </h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen">

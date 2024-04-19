@@ -189,6 +189,10 @@ const setResult = async (req, res) => {
       });
 
       const savedResult = await result.save();
+      const dbUserUpdated = await User.updateOne(
+        { studentid: student_id },
+        { gaveQuiz: true }
+      );
       if (savedResult) {
         res.status(200).json({ message: "Result added successfully!" });
       } else {
