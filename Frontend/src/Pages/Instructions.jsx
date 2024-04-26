@@ -26,7 +26,7 @@ function Instructions() {
           navigate("/student/login");
         } else {
           const alreadyGiven = await quizGiven(loggedIn.data.email);
-          console.log("Already Given:", alreadyGiven)
+          console.log("Already Given:", alreadyGiven);
           if (alreadyGiven) {
             setquizGivenAlready(true);
           }
@@ -100,6 +100,7 @@ function Instructions() {
               to="/student/quiz"
               // onClick={onStartQuiz}
               className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-700"
+              id="startquiz"
             >
               Start Quiz
             </Link>

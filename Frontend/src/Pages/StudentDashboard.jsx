@@ -106,7 +106,7 @@ function Quiz() {
         <NavbarStudent />
         <div className="text-center mt-8">
           <h1 className="text-3xl font-semibold">
-            Thanks for giving the quiz! {total}
+            Thanks for giving the quiz!
           </h1>
         </div>
       </div>
@@ -142,6 +142,7 @@ function Quiz() {
                   <input
                     type="radio"
                     name={`question_${currentQuestion.questionId}`}
+                    id={`${currentQuestion.questionId}`}
                     value={option}
                     checked={selectedOption === option}
                     onChange={() => handleOptionChange(option)}

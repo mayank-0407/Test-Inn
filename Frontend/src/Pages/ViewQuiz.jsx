@@ -104,9 +104,9 @@ function Viewquestion() {
             <Link to={`/question/create/${id}`} className="btn-red">
               Add MCQ
             </Link>
-            {/* <Link to={`/question/create/fillup/${id}`} className="btn-red">
+            <Link to={`/question/create/fillup/${id}`} className="btn-red">
               Add FillUp
-            </Link> */}
+            </Link>
             <a
               className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-full transition duration-200"
               href="#"
@@ -188,7 +188,7 @@ function Viewquestion() {
             </Link>
             <div className="p-4">
               <h3 className="text-xl font-semibold mb-2">
-                QuizID - {question.questionId}
+                QuestionID - {question.questionId}
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
                 Question - {question.questionText}
