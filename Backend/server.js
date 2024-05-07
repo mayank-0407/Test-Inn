@@ -4,6 +4,7 @@ const { mongoose } = require("mongoose");
 
 const authroutes = require("./routes/authRoutes");
 const quizroutes = require("./routes/quizRoutes");
+const data = require("./routes/data");
 
 require("dotenv").config();
 
@@ -30,5 +31,6 @@ try {
 
 app.use("/api", authroutes);
 app.use("/quiz", quizroutes);
+app.use("/data", data);
 
 app.listen(PORT, () => console.log(`Server is running at port: ${PORT}`));

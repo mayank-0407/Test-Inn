@@ -5,7 +5,7 @@ var quizSchema = mongoose.Schema({
     required: true,
   },
   quizdescription: {
-    type: String
+    type: String,
     // required: true,
   },
   upload: {
@@ -23,4 +23,7 @@ var quizSchema = mongoose.Schema({
     default: [],
   },
 });
+
+quizSchema.index({ quizname: 1 });
+
 module.exports = mongoose.model("quiz", quizSchema);

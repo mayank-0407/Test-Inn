@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const quizController = require("../controllers/quizController");
 const studentController = require("../controllers/studentController");
+const dataEngineering = require("../controllers/dataengineering");
 
 const router = Router();
 

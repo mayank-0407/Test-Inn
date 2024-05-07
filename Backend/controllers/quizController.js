@@ -5,7 +5,7 @@ const Student = require("../models/Student");
 const Result = require("../models/Result");
 const jwt = require("jsonwebtoken");
 const CsvParser = require("json2csv").Parser;
-var csv=require('csvtojson');
+var csv = require("csvtojson");
 
 const createQuiz = async (req, res) => {
   const whoid_ = req.body.ownerid; // Assuming userId is in the request object
@@ -177,7 +177,7 @@ const setResult = async (req, res) => {
     var quiz_id = req.body.quizid;
     var student_id = req.body.studentid;
     var total_marks_ = req.body.total;
-    total_marks_++;
+    // total_marks_++;
     var total_marks = total_marks_.toString();
 
     try {

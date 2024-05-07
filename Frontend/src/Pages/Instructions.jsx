@@ -84,13 +84,13 @@ function Instructions() {
             clicking the "Next" button. Please use this button only when you are
             ready to proceed to the next question.
           </p>
-          <p className="text-lg mb-4">
+          {/* <p className="text-lg mb-4">
             <strong>Submitting:</strong> The quiz will end automatically after
             (Number of Questions ) * 1 minute. If you've marked answers to all
             the questions before the time is up, if you ended early than you
             need to submit . Your score will be calculated based on the marked
             answers.
-          </p>
+          </p> */}
           <p className="text-lg mb-4">
             <strong>Enjoy:</strong> Take a deep breath, stay focused, and enjoy
             the quiz!
@@ -101,6 +101,7 @@ function Instructions() {
               // onClick={onStartQuiz}
               className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover-bg-blue-700"
               id="startquiz"
+              name="acceptinstructions"
             >
               Start Quiz
             </Link>

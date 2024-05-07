@@ -25,5 +25,10 @@ var questionSchema = mongoose.Schema({
         // required: true
     }
 })
+
+questionSchema.index({ quizid: 1 });
+
+questionSchema.index({ questionText: 'text' });
+
 module.exports = mongoose.model('question',questionSchema)
 

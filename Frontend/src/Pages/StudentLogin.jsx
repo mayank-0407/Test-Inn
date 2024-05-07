@@ -37,6 +37,11 @@ export default function SignIn() {
       setError("Username Con not be empty!");
       return;
     }
+    if (password.trim().length === 0) {
+      setifError(true);
+      setError("Password Con not be empty!");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:4001/api/student/login",
