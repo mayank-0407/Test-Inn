@@ -22,7 +22,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: subdir/package-lock.json
+        cache-dependency-path: Backend/package-lock.json
 
     # Backend
     - name: Install dependencies for backend
@@ -30,22 +30,22 @@ jobs:
       run: npm i
     
     - name: Build backend
-      working-directory: ./backend
+      working-directory: ./Backend
       run: npm run build --if-present
     
     - name: Run backend
-      working-directory: ./backend
+      working-directory: ./Backend
       run: npm run dev
 
     # Frontend
     - name: Install dependencies for frontend
-      working-directory: ./frontend
+      working-directory: ./Frontend
       run: npm i
     
     - name: Build frontend
-      working-directory: ./frontend
+      working-directory: ./Frontend
       run: npm run build --if-present
     
     - name: Run frontend
-      working-directory: ./frontend
+      working-directory: ./Frontend
       run: npm run dev
