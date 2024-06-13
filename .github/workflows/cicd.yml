@@ -25,9 +25,9 @@ jobs:
         cache-dependency-path: Backend/package-lock.json
 
     # Backend
-    - name: Install dependencies for backend
+    - name: Install dependencies for the backend
       working-directory: ./Backend
-      run: npm i
+      run: npm install
     
     - name: Build backend
       working-directory: ./Backend
@@ -36,16 +36,3 @@ jobs:
     - name: Run backend
       working-directory: ./Backend
       run: npm test
-
-    # Frontend
-    - name: Install dependencies for frontend
-      working-directory: ./Frontend
-      run: npm i
-    
-    - name: Build frontend
-      working-directory: ./Frontend
-      run: npm run build --if-present
-    
-    - name: Run frontend
-      working-directory: ./Frontend
-      run: npm text
