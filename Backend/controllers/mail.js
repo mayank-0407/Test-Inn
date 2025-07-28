@@ -1,5 +1,6 @@
 require("dotenv").config();
 var nodemailer = require("nodemailer");
+
 function sendEmail(to, otp) {
   var transporter = nodemailer.createTransport({
     service: "gmail",

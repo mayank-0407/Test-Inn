@@ -36,7 +36,6 @@ function Quiz() {
             navigate("/student/login");
           } else {
             const alreadyGiven = await quizGiven(loggedIn.data.email);
-            console.log("Already Given:", alreadyGiven);
             if (alreadyGiven) {
               setquizGivenAlready(true);
             }
@@ -72,12 +71,24 @@ function Quiz() {
   };
 
   const goToNextQuestion = async () => {
+
     const currentQuestion = quiz[currentQuestionIndex];
-    const isCorrect = selectedOption === currentQuestion.answer;
+
+    if (!selectedOption || selectedOption.trim() === "") {
+      toast.warning("Please select or enter an answer before proceeding.");
+      return;
+    }
+
+    const isCorrect = currentQuestion.ismcq
+      ? selectedOption === currentQuestion.answer
+      : selectedOption.trim().toLowerCase() ===
+        currentQuestion.answer.trim().toLowerCase();
 
     if (isCorrect) {
       setTotal(total + 1);
     }
+
+    setSelectedOption(null);
 
     if (currentQuestionIndex < quiz.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -136,21 +147,33 @@ function Quiz() {
             {currentQuestion.questionText}
           </h3>
           <form>
-            {currentQuestion.options.map((option, index) => (
-              <div key={index} className="mb-2">
-                <label className="inline-flex items-center">
-                  <input
-                    type="radio"
-                    name={`question_${currentQuestion.questionId}`}
-                    id={`${currentQuestion.questionId}`}
-                    value={option}
-                    checked={selectedOption === option}
-                    onChange={() => handleOptionChange(option)}
-                  />
-                  <span className="ml-2">{option}</span>
-                </label>
+            {currentQuestion.ismcq ? (
+              currentQuestion.options.map((option, index) => (
+                <div key={index} className="mb-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name={`question_${currentQuestion.questionId}`}
+                      id={`${currentQuestion.questionId}`}
+                      value={option}
+                      checked={selectedOption === option}
+                      onChange={() => handleOptionChange(option)}
+                    />
+                    <span className="ml-2">{option}</span>
+                  </label>
+                </div>
+              ))
+            ) : (
+              <div className="mb-4">
+                <input
+                  type="text"
+                  className="border rounded px-3 py-2 w-full"
+                  placeholder="Type your answer here..."
+                  value={selectedOption || ""}
+                  onChange={(e) => handleOptionChange(e.target.value)}
+                />
               </div>
-            ))}
+            )}
             <button
               type="button"
               onClick={goToNextQuestion}

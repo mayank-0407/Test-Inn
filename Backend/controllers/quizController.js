@@ -177,6 +177,7 @@ const setResult = async (req, res) => {
     var quiz_id = req.body.quizid;
     var student_id = req.body.studentid;
     var total_marks_ = req.body.total;
+    console.log("HI : ", total_marks_);
     // total_marks_++;
     var total_marks = total_marks_.toString();
 
